@@ -1,0 +1,110 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>Codebase - Bootstrap 5 Admin Template &amp; UI Framework |
+            DEMO</title>
+        <meta name="description"
+            content="Codebase - Bootstrap 5 Admin Template &amp; UI Framework created by pixelcave | This is the demo of Codebase! You need to purchase a license for legal use! | DEMO">
+        <meta name="author" content="pixelcave">
+        <meta name="robots" content="index, follow">
+        <meta property="og:title" content="Codebase - Bootstrap 5 Admin Template &amp; UI Framework | DEMO">
+        <meta property="og:site_name" content="Codebase">
+        <meta property="og:description" content="Codebase - Bootstrap 5 Admin Template &amp; UI Framework created by pixelcave | This is the demo of Codebase! You need to purchase a license for legal use! | DEMO">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content>
+        <meta property="og:image" content>
+        <link rel="shortcut icon" href="assets/media/favicons/favicon.png">
+        <link rel="icon" type="image/png" sizes="192x192" href="assets/media/favicons/favicon-192x192.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="assets/media/favicons/apple-touch-icon-180x180.png">
+        <link rel="stylesheet" id="css-main" href="{% static 'admin/css/codebase.min-5.8.css' %} ">
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HQDQJJYW7"></script>
+        <script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-9HQDQJJYW7');</script>
+    </head>
+    <body>
+        <div id="page-container" class="main-content-boxed">
+            <main id="main-container">
+                <div class="bg-image"
+                    style="background-image: url('{% static 'admin/img/photo34@2x.jpg' %}');">
+                    <div class="row mx-0 bg-black-50">
+                        <div
+                            class="hero-static col-md-6 col-xl-8 d-none d-md-flex align-items-md-end">
+                            <div class="p-4">
+                                <p class="fs-3 fw-semibold text-white">
+                                    Cada gestión es un paso hacia el éxito. <br>
+                                    ¡Tu esfuerzo marca la diferencia!
+                                </p>
+                                <p class="text-white-75 fw-medium">
+                                    Copyright &copy; <span
+                                    data-toggle="year-copy"></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div
+                            class="hero-static col-md-6 col-xl-4 d-flex align-items-center bg-body-extra-light">
+                            <div class="content content-full">
+                                <div class="px-4 py-2 mb-4">
+                                    <a class="link-fx fw-bold" href="../../../../../../../../dibax_admin/">
+                                        <span class="fs-4 text-body-color">DIBAX</span>
+                                        <span class="fs-4">TAX</span>
+                                        <span class="fs-4 text-body-color">ADMIN</span>
+                                    </a>
+                                    <h1 class="h3 fw-bold mt-4 mb-2">
+                                        Welcome to Your Dashboard
+                                    </h1>
+                                    <h2 class="h5 fw-medium text-muted mb-0">Please sign in</h2>
+                                </div>
+                                
+
+
+                                <form class="js-validation-signin px-4" action="../../../../../../../../dibax_admin/" method="POST">
+                                    {% csrf_token %}
+                                    {% if Alerta %}
+                                        <div class="alert alert-danger alert-dismissible" role="alert" id="continer_alert">
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id="close_alert"></button>
+                                            <h3 class="alert-heading fs-5 fw-bold mb-1">Error</h3>
+                                            <p class="mb-0">
+                                                {{Alerta}}
+                                            </p>
+                                        </div>
+                                        <script>
+                                            document.getElementById("close_alert").addEventListener('click',function(e){
+                                                document.getElementById("continer_alert").classList.add('d-none')
+                                            })
+                                        </script>
+                                    {% endif %}
+                                    <div class="form-floating mb-4">
+                                        {{ form_login.username }}
+                                        <label class="form-label" for="login-username">Username</label>
+                                    </div>
+                                    <div class="form-floating mb-4">
+                                        {{ form_login.password }}
+                                        <label class="form-label" for="login-password">Password</label>
+
+                                    </div>
+                                    <div class="mb-4">
+                                        <button type="submit" class="btn btn-lg btn-alt-primary fw-semibold">
+                                            Sign In
+                                        </button>
+                                        <div class="mt-4">
+                                            <a class="fs-sm fw-medium link-fx text-muted me-2 mb-1 d-inline-block" 
+                                                href="#">
+                                                Forgot Password
+                                            </a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <script src="assets/js/codebase.app.min-5.8.js"></script>
+        <script src="assets/js/lib/jquery.min.js"></script>
+        <script src="assets/js/plugins/jquery-validation/jquery.validate.min.js"></script>
+        <script src="assets/js/pages/op_auth_signin.min.js"></script>
+    </body>
+</html>

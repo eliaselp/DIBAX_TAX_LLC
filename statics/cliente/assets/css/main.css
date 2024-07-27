@@ -1,0 +1,40 @@
+/*
+    Theme Name: Digicove
+    Version: 1.0
+    Author: WPThemeBooster
+    Author URL: 
+    Description: 
+    Date: 04-10-2023
+*/
+
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+1. Fonts, Icons and Other Styles Import
+2. Reset
+  2-1. Body, Font, Container, Space
+  2-2. Placeholder Customize
+  2-3. Social Icons Color
+  2-4. Input, Textarea (All forms field) customization
+  2-5. Button Styling
+-----------------------------------------------------------------*/
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Nunito+Sans:wght@400;600;700&amp;family=Quicksand:wght@500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&amp;family=Lora:wght@400;600;700&amp;family=Poppins:wght@300;400;700&amp;display=swap');
+
+@import url("../fonts/bootstrap-icons/font/bootstrap-icons.css");
+@import url("bootstrap.min.css");
+@import url("global.css");
+@import url("animation.css");
+@import url("../../plugins/wow/animate.css");
+@import url("../../plugins/swiper/swiper-bundle.min.css");
+@import url("../../plugins/odometer/odometer-theme-default.css");
+@import url("../../plugins/fancybox/jquery.fancybox.css");
+@import url("header.css");
+@import url("section-heading.css");
+@import url("footer.css");
+@import url("style.css");
+@import url("seo-dark.css");
+@import url("shop.css");
+@import url("responsive.css");

@@ -1,0 +1,88 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>DIBAX_TAX_LLC</title>
+        <!-- Favicon and touch Icons -->
+        <link href="{% static 'img/logo3.1.JPG' %}" rel="shortcut icon" type="image/png">
+        <link rel="stylesheet" id="css-main" href="{% static 'admin/css/codebase.min-5.8.css' %} ">
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HQDQJJYW7"></script>
+        <script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-9HQDQJJYW7');</script>
+    </head>
+    <body>
+        <div id="page-container" class="main-content-boxed">
+            <main id="main-container">
+                <div class="bg-image" 
+                    style="background-image: url('{% static 'img/bg_5.jpeg' %}');">
+                    <div class="row mx-0 bg-default-op">
+                        <div class="hero-static col-md-6 col-xl-8 d-none d-md-flex align-items-md-end">
+                            <div class="p-4">
+                                <p class="fs-3 fw-semibold text-white">
+                                    You are awesome! Build something amazing!
+                                </p>
+                                <p class="text-white-75 fw-medium">
+                                    Copyright &copy; 
+                                    <span data-toggle="year-copy"></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="hero-static col-md-6 col-xl-4 d-flex align-items-center bg-body-extra-light">
+                            <div class="content content-full">
+                                <div class="px-4 py-2 mb-4">
+                                    <a class="link-fx fw-bold" href="../../../../../../../../../../../../../">
+                                        <span class="fs-4 text-body-color">DIBAX</span>
+                                        <span class="fs-4">TAX</span>
+                                        <span class="fs-4 text-body-color">LLC</span>
+                                    </a>
+                                    <h1 class="h3 fw-bold mt-4 mb-2">
+                                        Reset Your Password
+                                    </h1>
+                                    <h2 class="h5 fw-medium text-muted mb-4">
+                                        Please enter your new password and confirm it.
+                                    </h2>
+                                </div>
+                                
+                                <form class="js-validation-signin px-4" action="../../../../../../../../../restore_pass/{{tocken}}/" method="POST">
+                                    {% csrf_token %}
+                                    {% if Alerta %}
+                                        <div class="alert alert-danger alert-dismissible" role="alert" id="continer_alert">
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id="close_alert"></button>
+                                            <h3 class="alert-heading fs-5 fw-bold mb-1">Error</h3>
+                                            <p class="mb-0">
+                                                {{Alerta}}
+                                            </p>
+                                        </div>
+                                        <script>
+                                            document.getElementById("close_alert").addEventListener('click',function(e){
+                                                document.getElementById("continer_alert").classList.add('d-none')
+                                            })
+                                        </script>
+                                    {% endif %}
+                                    <div class="form-floating mb-4">
+                                        {{ form.password1 }}
+                                        <label class="form-label" for="login-password">New Password</label>
+                                    </div>
+                                    <div class="form-floating mb-4">
+                                        {{ form.password2 }}
+                                        <label class="form-label" for="login-password">Repeat Password</label>
+                                    </div>
+                                    <div class="mb-4">
+                                        <button type="submit" class="btn btn-lg btn-alt-primary fw-semibold">
+                                            Restore
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <script src="{% static 'admin/js/codebase.app.min-5.8.js' %}"></script>
+        <script src="{% static 'admin/js/jquery.min.js' %}"></script>
+        <script src="{% static 'admin/js/jquery.validate.min.js' %}"></script>
+        <script src="{% static 'admin/js/op_auth_reminder.min.js' %}"></script>
+    </body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Popup</title>
+    <link href="../statics/cliente/assets/" rel="stylesheet">
+    <style>
+        .error-popup {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+            display: none;
+            max-width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="alert alert-danger alert-dismissible fade show error-popup" role="alert" id="errorPopup">
+        <strong>Error!</strong> This is an error message.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <button class="btn btn-primary" onclick="showErrorPopup()">Show Error Popup</button>
+
+    <script src="../statics/cliente/assets/js/popper.min.js"></script>
+    <script src="../statics/cliente/assets/js/bootstrap.min.js"></script>
+    <script>
+        function showErrorPopup() {
+            var errorPopup = document.getElementById('errorPopup');
+            errorPopup.style.display = 'block';
+
+            setTimeout(function() {
+                var alert = new bootstrap.Alert(errorPopup);
+                alert.close();
+            }, 10000);
+        }
+    </script>
+</body>
+</html>

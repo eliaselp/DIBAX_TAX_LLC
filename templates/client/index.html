@@ -292,7 +292,7 @@
                             <p>What we do offer</p>
                         </div><!-- End Section Title -->
                         <ul class="nav nav-tabs row  d-flex" data-aos="fade-up" data-aos-delay="100">
-                            {% if servicios.inmigracion.habilitado == True %}
+                            {% if not servicios.inmigracion or servicios.inmigracion.habilitado == True %}
                                 <li class="nav-item col ">
                                     <a class="nav-link active" data-bs-toggle="tab" data-bs-target="#features-tab-1">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" 
@@ -305,7 +305,7 @@
                                     </a>
                                 </li>
                             {% endif %}
-                            {% if servicios.impuestos.habilitado == True %}
+                            {% if not servicios.impuestos or servicios.impuestos.habilitado == True %}
                                 <li class="nav-item col">
                                     <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-2">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-cash-coin bi bi-box-seam mx-2" viewBox="0 0 16 16">
@@ -320,7 +320,7 @@
                                     </a>
                                 </li>
                             {% endif %}
-                            {% if servicios.consultoria.habilitado == True %}
+                            {% if not servicios.consultoria or servicios.consultoria.habilitado == True %}
                                 <li class="nav-item col">
                                     <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-wechat bi bi-brightness-high mx-2" viewBox="0 0 16 16">
@@ -333,7 +333,7 @@
                                     </a>
                                 </li>
                             {% endif %}
-                            {% if servicios.mentoria.habilitado == True %}
+                            {% if not servicios.mentoria or servicios.mentoria.habilitado == True %}
                                 <li class="nav-item col">
                                     <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-4">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-mortarboard mx-2" viewBox="0 0 16 16">
@@ -349,7 +349,7 @@
                         </ul><!-- End Tab Nav -->
 
                         <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
-                            {% if servicios.inmigracion.habilitado == True %}
+                            {% if not servicios.inmigracion or servicios.inmigracion.habilitado == True %}
                                 <div class="tab-pane fade active show" id="features-tab-1">
                                     <div class="row">
                                         <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
@@ -402,7 +402,7 @@
                                     </div>
                                 </div><!-- End Tab Content Item -->
                             {% endif %}
-                            {% if servicios.impuestos.habilitado == True %}
+                            {% if not servicios.impuestos or servicios.impuestos.habilitado == True %}
                                 <div class="tab-pane fade" id="features-tab-2">
                                     <div class="row">
                                         <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
@@ -474,7 +474,7 @@
                                     </div>
                                 </div>
                             {% endif %}
-                            {% if servicios.consultoria.habilitado == True %}
+                            {% if not servicios.consultoria or servicios.consultoria.habilitado == True %}
                                 <div class="tab-pane fade" id="features-tab-3">
                                     <div class="row">
                                         <div class="col-lg-6 order-2 order-lg-1 mt-3 mt-lg-0">
@@ -545,7 +545,7 @@
                                     </div>
                                 </div><!-- End Tab Content Item -->
                             {% endif %}
-                            {% if servicios.mentoria.habilitado %}
+                            {% if not servicios.mentoria or servicios.mentoria.habilitado %}
                                 <div class="tab-pane fade" id="features-tab-4">
                                     <div class="row">
                                         <div

@@ -81,16 +81,16 @@
                                             <i class="bi bi-chevron-down toggle-dropdown"></i>
                                         </a>
                                         <ul>
-                                            {% if servicios.inmigracion.habilitado == True %}
+                                            {% if not servicios.inmigracion or servicios.inmigracion.habilitado == True %}
                                                 <li><a href="#">Trámites de Inmigracion</a></li>
                                             {% endif %}
-                                            {% if servicios.impuestos.habilitado == True %}
+                                            {% if not servicios.impuestos or servicios.impuestos.habilitado == True %}
                                                 <li><a href="#">Servicios de Impuestos</a></li>
                                             {% endif %}
-                                            {% if servicios.consultoria.habilitado == True %}
+                                            {% if not servicios.consultoria or servicios.consultoria.habilitado == True %}
                                                 <li><a href="#">Consultoria Financiera</a></li>
                                             {% endif %}
-                                            {% if servicios.mentoria.habilitado == True %}
+                                            {% if not servicios.mentoria or servicios.mentoria.habilitado == True %}
                                                 <li><a href="#">Mentoría Personalizada</a></li>
                                             {% endif %}
                                             {% if disponibles == 0 %}

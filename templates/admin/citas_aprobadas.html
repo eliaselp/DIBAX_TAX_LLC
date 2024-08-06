@@ -1,0 +1,366 @@
+{% extends "admin/home_admin.html" %}
+
+{% block contenido %}
+<main id="main-container">
+    <div class="content">
+        <div class="block block-rounded mb-0">
+            <div class="block-content block-content-full">
+                <div class="py-3 text-center">
+                    <h1 class="h3 fw-extrabold mb-1">
+                        Citas Aprobadas
+                    </h1>
+                </div>
+            </div>
+        </div>
+        {% if not citas_aprobadas %}
+            <div class="py-3 text-center mt-5">
+                <h1 class="h3 fw-extrabold mb-1">
+                    Aun no hay citas aprobadas
+                </h1>
+            </div>
+        {% endif %}
+        <div class="row mt-2">
+            {% for cp in citas_aprobadas %}
+                <div class="col-1 col-md-2"></div>
+                <div class="col-10 col-md-8">
+                    <div class="block block-rounded">
+                        <div class="block-header block-header-default">
+                            <h3 class="block-title">{{cp.fecha}} :  {{cp.servicio}}</h3>
+                        </div>
+                        <div class="block-content">
+                            {% if cp.clienteid %}
+                                <div class="mb-1">
+                                    {% if cp.clienteid.Verificado %}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="gold" class="bi bi-patch-check-fill d-inline mx-1" viewBox="0 0 16 16">
+                                            <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+                                        </svg>
+                                    {% endif %}
+                                    <label class="h5 d-inline">Nombre: </label><p class="d-inline">{{cp.clienteid.First_Name}} {{cp.clienteid.Last_Name}}</p>
+                                </div>
+                                <div class="mb-1">
+                                    <label class="h5 d-inline">Teléfono: </label><p class="d-inline">{{cp.clienteid.Phone}}</p>
+                                </div>
+                            {% else %}
+                                <div class="mb-1">                                    
+                                    <label class="h5 d-inline">Nombre: </label><p class="d-inline">{{cp.nombre}}</p>
+                                </div>
+                                <div class="mb-1">
+                                    <label class="h5 d-inline">Teléfono: </label><p class="d-inline">{{cp.phone}}</p>
+                                </div>
+                            {% endif %}
+                            {% if cp.descripcion %}
+                                <div class="mb-1">
+                                    <label class="h5 d-inline">Descripción: </label><p class="d-inline">{{cp.descripcion}}</p>
+                                </div>
+                            {% endif %}
+                            <div class="mb-1">
+                                <label class="h5 d-inline">Detalles: </label><p class="d-inline">{{cp.detalles}}</p>
+                            </div>
+                            {% if cp.hora %}
+                                <div class="mb-1">
+                                    <label class="h5 d-inline">Hora: </label><p class="d-inline">{{cp.hora}}</p>
+                                </div>
+                            {% endif %}
+                            {% if cp.importe %}
+                                <div class="mb-1">
+                                    <label class="h5 d-inline">Importe: </label><p class="d-inline">{{cp.importe}}</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="block-content block-content-full block-content-sm bg-body-light fs-sm">
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-alt-danger mr-1"
+                                data-bs-toggle="modal"
+                                data-bs-target="#denegar_cita_{{cp.id}}">
+                                    Denegar
+                                </button>
+                                <div class="modal fade" id="denegar_cita_{{cp.id}}" tabindex="-1"
+                                    aria-labelledby="modal-slideup" style="display: none;"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-slideup" role="document">
+                                        <div class="modal-content">
+                                            <div class="block block-rounded shadow-none mb-0">
+                                                <div class="block-header block-header-default">
+                                                    <h3 class="block-title fw-black fs-4">Denegar Cita</h3>
+                                                    <div class="block-options">
+                                                        <button type="button" class="btn-block-option"
+                                                            data-bs-dismiss="modal" aria-label="Close">
+                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                width="24" height="24"
+                                                                fill="currentColor"
+                                                                class="bi bi-x-lg fa fa-times"
+                                                                viewBox="0 0 16 16">
+                                                                <path
+                                                                    d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="block-content fs-sm">
+                                                    <h5 class="block-title fw-black fs-4">
+                                                        Esta seguro que desea denegar esta cita?
+                                                    </h5>
+                                                </div>
+                                                <div
+                                                    class="block-content block-content-full block-content-sm text-end border-top mt-4">
+                                                    <button type="button" class="btn btn-alt-secondary"
+                                                        data-bs-dismiss="modal">
+                                                        No
+                                                    </button>
+                                                    <a href="../../../../../../../../../../../../../../dibaz_admin/denegar_cita/{{cp.id}}/" type="button" class="btn btn-alt-danger mr-1">
+                                                        Si
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-alt-secondary js-click-ripple-enabled mr-1" data-toggle="click-ripple" style="overflow: hidden; position: relative; z-index: 1;"
+                                data-bs-toggle="modal"
+                                data-bs-target="#editar_cita_{{cp.id}}">
+                                    Editar
+                                </button>
+                                <div class="modal fade" id="editar_cita_{{cp.id}}" tabindex="-1"
+                                    aria-labelledby="modal-slideup" style="display: none;"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-slideup" role="document">
+                                        <div class="modal-content">
+                                            <div class="block block-rounded shadow-none mb-0">
+                                                <div class="block-header block-header-default">
+                                                    <h3 class="block-title fw-black fs-4">Editar Cita</h3>
+                                                    <div class="block-options">
+                                                        <button type="button" class="btn-block-option"
+                                                            data-bs-dismiss="modal" aria-label="Close">
+                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                width="24" height="24"
+                                                                fill="currentColor"
+                                                                class="bi bi-x-lg fa fa-times"
+                                                                viewBox="0 0 16 16">
+                                                                <path
+                                                                    d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="block-content fs-sm">
+                                                    <form action="../../../../../../../../../../../../../../dibaz_admin/editar_cita/{{cp.servicio}}/" method="POST">
+                                                        {% csrf_token %}
+                                                        <input required name="id" type="hidden" value="{{cp.id}}">
+                                                        <input required name="aprobadas" type="hidden" value="true">
+                                                        {% if not cp.clienteid %}
+                                                            <label class="fw-semibold">Nombre</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text"
+                                                                    id="basic-addon1">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                                                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                                                                    </svg>
+                                                                </span>
+                                                                <input required name="nombre" type="text" value="{{cp.nombre}}" class="form-control" placeholder="Inserte el nombre del cliente">
+                                                            </div>
+                        
+                                                            <label class="fw-semibold mt-3">Teléfono</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text"
+                                                                    id="basic-addon1">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-phone" viewBox="0 0 16 16">
+                                                                        <path d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                                        <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                                                                    </svg>
+                                                                </span>
+                                                                <input required name="telefono" value="{{cp.phone}}" type="text" class="form-control" placeholder="Inserte el teléfono del cliente">
+                                                            </div>
+                                                        {% endif %}
+                                                        {% if cp.servicio == "Inmigración" %}
+                                                            <label class="fw-semibold mt-3">Selecione una descripción</label>
+                                                            <select required class="form-select" id="example-select" name="descripcion">
+                                                                <option {% if cp.descripcion == "" %} selected {% endif %} value="">Seleccione una descripción</option>
+                                                                <option value="Asesoría en Solicitudes de Visas" {% if cp.descripcion == "Asesoría en Solicitudes de Visas" %}selected{% endif %}>
+                                                                    Asesoría en Solicitudes de Visas
+                                                                </option>
+                                                                <option value="Procesamiento de Residencia Permanente (Green Card)"
+                                                                {% if cp.descripcion == "Procesamiento de Residencia Permanente (Green Card)" %} selected {% endif %}>
+                                                                    Procesamiento de Residencia Permanente (Green Card)
+                                                                </option>
+                                                                <option value="Ciudadanía y Naturalización"
+                                                                {% if cp.descripcion == "Ciudadanía y Naturalización" %} selected {% endif %}>
+                                                                    Ciudadanía y Naturalización
+                                                                </option>
+                                                                <option value="Renovación y Reemplazo de Documentos"
+                                                                {% if cp.descripcion == "Renovación y Reemplazo de Documentos" %} selected {% endif %}>
+                                                                    Renovación y Reemplazo de Documentos
+                                                                </option>
+                                                                <option value="Defensa en Casos de Deportación"
+                                                                {% if cp.descripcion == "Defensa en Casos de Deportación" %} selected {% endif %}>
+                                                                    Defensa en Casos de Deportación
+                                                                </option>
+                                                                <option value="Otra"
+                                                                {% if cp.descripcion == "Otra" %} selected {% endif %}>
+                                                                    Otra
+                                                                </option>
+                                                            </select>
+                                                        {% elif cp.servicio == "Impuestos" %}
+                                                            <label class="fw-semibold mt-3">Selecione una descripción</label>
+                                                            <select required class="form-select" id="example-select" name="descripcion">
+                                                                <option {% if cp.descripcion == "" %} selected {% endif %} value="">Seleccione una descripción</option>
+                                                                <option {% if cp.descripcion == "Preparación de Declaraciones de Impuestos" %} selected {% endif %} value="Preparación de Declaraciones de Impuestos">
+                                                                    Preparación de Declaraciones de Impuestos
+                                                                </option>
+                                                                <option {% if cp.descripcion == "Planificación Fiscal" %} selected {% endif %} value="Planificación Fiscal">
+                                                                    Planificación Fiscal
+                                                                </option>
+                                                                <option {% if cp.descripcion == "Asesoría en Cumplimiento Tributario" %} selected {% endif %} value="Asesoría en Cumplimiento Tributario">
+                                                                    Asesoría en Cumplimiento Tributario
+                                                                </option>
+                                                                <option {% if cp.descripcion == "Resolución de Problemas con el IRS" %} selected {% endif %} value="Resolución de Problemas con el IRS">
+                                                                    Resolución de Problemas con el IRS
+                                                                </option>
+                                                                <option {% if cp.descripcion == "Consultoría para Pequeñas Empresas" %} selected {% endif %} value="Consultoría para Pequeñas Empresas">
+                                                                    Consultoría para Pequeñas Empresas
+                                                                </option>
+                                                                <option value="Otra">
+                                                                    Otra
+                                                                </option>
+                                                            </select>
+                                                        {% endif %}
+                                                        
+                    
+                                                        <label class="fw-semibold mt-3">Selecione una fecha</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text"
+                                                                id="basic-addon1">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-calendar4-week nav-main-link-icon" viewBox="0 0 16 16">
+                                                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
+                                                                    <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z" />
+                                                                </svg>
+                                                            </span>
+                                                            <input name="fecha" type="text" class="form-control" id="datepicker_cita_edit_{{cp.id}}" placeholder="Seleccione una fecha">
+                                                        </div>
+
+                                                        <label class="fw-semibold mt-2">Establecer Hora</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-watch" viewBox="0 0 16 16">
+                                                                    <path d="M8.5 5a.5.5 0 0 0-1 0v2.5H6a.5.5 0 0 0 0 1h2a.5.5 0 0 0 .5-.5z"/>
+                                                                    <path d="M5.667 16C4.747 16 4 15.254 4 14.333v-1.86A6 6 0 0 1 2 8c0-1.777.772-3.374 2-4.472V1.667C4 .747 4.746 0 5.667 0h4.666C11.253 0 12 .746 12 1.667v1.86a6 6 0 0 1 1.918 3.48.502.502 0 0 1 .582.493v1a.5.5 0 0 1-.582.493A6 6 0 0 1 12 12.473v1.86c0 .92-.746 1.667-1.667 1.667zM13 8A5 5 0 1 0 3 8a5 5 0 0 0 10 0"/>
+                                                                </svg>
+                                                            </span>
+                                                            <input type="time" id="timeInput" name="hora" class="form-control">
+                                                        </div>
+
+                                                        <script>
+                                                            function validateNumberInput() {
+                                                                const input = document.getElementById('numberInput').value;
+                                                                const numberPattern = /^[+-]?(\d*\.\d+|\d+)$/;
+                                                                if (!numberPattern.test(input)) {
+                                                                    alert('Por favor, ingrese un número válido.');
+                                                                    return false;
+                                                                }
+                                                                return true;
+                                                            }
+                                                        </script>
+                                                        <label class="fw-semibold mt-3">Importe (Opcional)</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
+                                                                    <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8m5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0"/>
+                                                                    <path d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195z"/>
+                                                                    <path d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083q.088-.517.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1z"/>
+                                                                    <path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 6 6 0 0 1 3.13-1.567"/>
+                                                                </svg>
+                                                            </span>
+                                                            <input type="number" id="numberInput" name="importe" step="any" class="form-control" placeholder="Inserte el importe">
+                                                        </div>
+                                                        
+                                                        <label class="fw-semibold mt-3">Detalles</label>
+                                                        <textarea name="detalles" cols="40" rows="6" class="form-control" placeholder="Inserte los detalles de la cita" required id="id_message">{{cp.detalles}}</textarea>
+                    
+                                                        <div class="block-content block-content-full block-content-sm text-end border-top mt-4">
+                                                            <button type="button" class="btn btn-alt-secondary"
+                                                                data-bs-dismiss="modal">
+                                                                Cerrar
+                                                            </button>
+                                                            <button type="submit" class="btn btn-alt-primary">
+                                                                Guardar
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-alt-success js-click-ripple-enabled" data-toggle="click-ripple" style="overflow: hidden; position: relative; z-index: 1;"
+                                data-bs-toggle="modal"
+                                data-bs-target="#finalizar_cita_{{cp.id}}">
+                                    Finalizar
+                                </button>
+                                <div class="modal fade" id="finalizar_cita_{{cp.id}}" tabindex="-1"
+                                    aria-labelledby="modal-slideup" style="display: none;"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-slideup" role="document">
+                                        <div class="modal-content">
+                                            <div class="block block-rounded shadow-none mb-0">
+                                                <div class="block-header block-header-default">
+                                                    <h3 class="block-title fw-black fs-4">Finalizar Cita</h3>
+                                                    <div class="block-options">
+                                                        <button type="button" class="btn-block-option" data-bs-dismiss="modal" aria-label="Close">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x-lg fa fa-times" viewBox="0 0 16 16">
+                                                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="block-content fs-sm">
+                                                    <form action="../../../../../../../../../../../../../../dibaz_admin/finalizar_cita/" method="POST">
+                                                        {% csrf_token %}
+                                                        <input required name="id" type="hidden" value="{{cp.id}}">
+                                                        <script>
+                                                            function validateNumberInput() {
+                                                                const input = document.getElementById('numberInput').value;
+                                                                const numberPattern = /^[+-]?(\d*\.\d+|\d+)$/;
+                                                                if (!numberPattern.test(input)) {
+                                                                    alert('Por favor, ingrese un número válido.');
+                                                                    return false;
+                                                                }
+                                                                return true;
+                                                            }
+                                                        </script>
+                                                        <label class="fw-semibold">Factura</label>
+                                                        <div class="input-group">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
+                                                                    <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8m5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0"/>
+                                                                    <path d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195z"/>
+                                                                    <path d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083q.088-.517.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1z"/>
+                                                                    <path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 6 6 0 0 1 3.13-1.567"/>
+                                                                </svg>
+                                                            </span>
+                                                            <input required type="number" id="numberInput" name="factura" step="any" class="form-control" placeholder="Inserte la facturación">
+                                                        </div>
+                                                        
+                                                        <div class="block-content block-content-full block-content-sm text-end border-top mt-4">
+                                                            <button type="button" class="btn btn-alt-secondary"
+                                                                data-bs-dismiss="modal">
+                                                                Cerrar
+                                                            </button>
+                                                            <button type="submit" class="btn btn-alt-primary">
+                                                                Finalizar
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1 col-md-2"></div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}

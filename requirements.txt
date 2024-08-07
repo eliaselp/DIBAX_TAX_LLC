@@ -1,0 +1,5 @@
+django
+pillow
+phonenumbers
+bleach
+django_session_timeout

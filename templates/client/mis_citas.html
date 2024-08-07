@@ -1,0 +1,711 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <title>DIBAZ TAX LLC</title>
+        <meta content name="description">
+        <meta content name="keywords">
+
+        <!-- Favicons -->
+        <link href="{% static 'img/logo00.jfif' %}" rel="icon">
+
+        <!-- Vendor CSS Files -->
+        <link href="{% static 'css/bootstrap-datepicker.min.css' %}" rel="stylesheet" >
+        <link href="{% static 'client/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'client/assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+        <link href="{% static 'client/assets/vendor/aos/aos.css' %}" rel="stylesheet">
+        <link href="{% static 'client/assets/vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+        <link href="{% static 'client/assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+        <link href="{% static 'client/assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+        <!-- Main CSS File -->
+        <link href="{% static 'client/assets/css/main.css' %}" rel="stylesheet">
+    </head>
+
+    <body class="index-page" style="background-color:#e9ecef;">
+        <header id="header" class="header d-flex align-items-center fixed-top" style="background-color:#2a2c39">
+            <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+                <a href="../../../../../../../../../../../../../../../../" class="logo d-flex align-items-center">
+                    <!-- Uncomment the line below if you also wish to use an image logo -->
+                    <img src="{% static 'img/logo00.jfif' %}" alt="" class="rounded-5">
+                    <h1 class="sitename">DIBAZ TAX LLC</h1>
+                </a>
+
+                <nav id="navmenu" class="navmenu">
+                    <ul>
+                        <li><a href="../../../../../../../../../../">Home</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="active">
+                                {% if verificado %}
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-patch-check-fill mx-2" viewBox="0 0 16 16">
+                                        <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+                                    </svg>
+                                {% endif %}
+                                <span>{{request.user}}</span>
+                                <i class="bi bi-chevron-down toggle-dropdown"></i>
+                            </a>
+                            <ul>
+                                <li><a href="../../../../../../../../../../perfil/">Perfil</a></li>
+                                {% if not request.user.is_staff %}
+                                    <li class="dropdown">
+                                        <a href="#">
+                                            <span>
+                                                Agendar Cita
+                                            </span> 
+                                            <i class="bi bi-chevron-down toggle-dropdown"></i>
+                                        </a>
+                                        <ul>
+                                            {% if not servicios.inmigracion or servicios.inmigracion.habilitado == True %}
+                                                <li>
+                                                    <a data-bs-toggle="modal" data-bs-target="#modal_inmigracion">Trámites de Inmigración</a>
+                                                </li>
+                                            {% endif %}
+                                            {% if not servicios.impuestos or servicios.impuestos.habilitado == True %}
+                                                <li>
+                                                    <a data-bs-toggle="modal" data-bs-target="#modal_impuestos">Servicios de Impuestos</a>
+                                                </li>
+                                            {% endif %}
+                                            {% if not servicios.consultoria or servicios.consultoria.habilitado == True %}
+                                                <li>
+                                                    <a data-bs-toggle="modal" data-bs-target="#modal_consultoria">Consultoria Financiera</a>
+                                                </li>
+                                            {% endif %}
+                                            {% if not servicios.mentoria or servicios.mentoria.habilitado == True %}
+                                                <li><a data-bs-toggle="modal" data-bs-target="#modal_mentoria" >Mentoría Personalizada</a></li>
+                                            {% endif %}
+                                            {% if disponibles == 0 %}
+                                                <li><a>No hay Servicios Disponibles Temporalmente</a></li>
+                                            {% endif %}
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Mis Citas</a></li>
+                                {% endif %}
+                                <li class="dropdown">
+                                    <a href="#">
+                                        <span>
+                                            Seguridad
+                                        </span> 
+                                        <i class="bi bi-chevron-down toggle-dropdown"></i>
+                                    </a>
+                                    <ul>
+                                        <li>
+                                            <a href="../../../../../../../../set_2fa/">
+                                                {% if not request.user.action_verify %}
+                                                    Activar verificación
+                                                {% else %}
+                                                    Desactivar verificación
+                                                {% endif %}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#"
+                                                data-bs-toggle="modal" data-bs-target="#anti_phishing">
+                                                Código anti-phishing
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a href="../../../../../../../../../../logout/">Cerrar Sesión</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+                </nav>
+            </div>
+        </header>
+
+
+
+        <main id="main-container" style="margin-top:90px; height:100vh;">
+            <div class="content pb-5">
+                <div class="block block-rounded mb-0">
+                    <div class="block-content block-content-full">
+                        <div class="py-3 text-center bg-white shadow-md mx-5 rounded-4">
+                            <h1 class="h2 fw-black fs-2 mb-1">
+                                Mis Citas
+                            </h1>
+                        </div>
+                    </div>
+                </div>
+                {% if not mis_citas %}
+                    <div class="py-3 text-center mt-5">
+                        <h1 class="h3 fw-extrabold mt-5">
+                            Aún no hay solicitudes realizadas
+                        </h1>
+                    </div>
+                {% else %}
+                    {% for k in mis_citas %}
+                        <div class="card w-75 mx-auto my-5 shadow-lg rounded-4">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                {% if verificado %}
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="gold" class="bi bi-patch-check-fill mx-2" viewBox="0 0 16 16">
+                                        <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+                                    </svg>
+                                {% endif %}
+                                {{k.fecha}} : {{k.servicio}}
+                                <div class="d-inline">
+                                    {% if k.nueva == True and k.aprobada == False and k.finalizada == False %}
+                                        <p class="bg-warning d-inline p-2 rounded-2">PENDIENTE</p>
+                                    {% elif k.nueva == False and k.aprobada == False and k.finalizada == True %}
+                                        <p class="bg-danger text-white d-inline p-2 rounded-2">
+                                            {% if k.cancelada %}
+                                                CANCELADA
+                                            {% else %}
+                                                DENEGADA
+                                            {% endif %}
+                                        </p>
+                                    {% elif k.nueva == False and k.aprobada == True and k.finalizada == False %}
+                                        <p class="bg-primary d-inline p-2 rounded-2">APROBADA</p>
+                                    {% elif k.nueva == False and k.aprobada == True and k.finalizada == True %}
+                                        <p class="bg-success d-inline p-2 rounded-2">FINALIZADA</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-1">
+                                    <label class="h5 d-inline">Nombre: </label><p class="d-inline">{{k.clienteid.First_Name}} {{k.clienteid.Last_Name}}</p>
+                                </div>
+                                <div class="mb-1">
+                                    <label class="h5 d-inline">Teléfono: </label><p class="d-inline">{{k.clienteid.Phone}}</p>
+                                </div>
+                                {% if k.descripcion %}
+                                    <div class="mb-1">
+                                        <label class="h5 d-inline">Descripción: </label><p class="d-inline">{{k.descripcion}}</p>
+                                    </div>
+                                {% endif %}
+                                <div class="mb-1">
+                                    <label class="h5 d-inline">Detalles: </label><p class="d-inline">{{k.detalles}}</p>
+                                </div>
+                                {% if k.hora %}
+                                    <div class="mb-1">
+                                        <label class="h5 d-inline">Hora: </label><p class="d-inline">{{k.hora}}</p>
+                                    </div>
+                                {% endif %}
+                                {% if k.importe %}
+                                    <div class="mb-1">
+                                        <label class="h5 d-inline">Importe: </label><p class="d-inline">${{k.importe}}</p>
+                                    </div>
+                                {% endif %}
+                                {% if k.factura %}
+                                    <div class="mb-1">
+                                        <label class="h5 d-inline">Facturación Final: </label><p class="d-inline">${{k.factura}}</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            {% if not k.finalizada == True %}
+                                <div class="card-footer text-muted">
+                                    <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelar_cita_{{k.id}}">
+                                        Cancelar Cita
+                                    </a>
+                                    <div class="modal fade" id="cancelar_cita_{{k.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 5050 !important;">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content" style="background-color: rgba(73, 80, 87, 0.8);">
+                                                <div class="modal-header text-light">
+                                                    <h5 class="modal-title text-white" id="exampleModalLabel">Cancelar Cita</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color: #ffffff;"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="../../../../../../../../../../../../../../cancelar_cita/" method="POST">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="id" value="{{k.id}}">
+                                                        <h5 class="block-title fw-black fs-4 text-white">
+                                                            Esta seguro que desea cancelar esta cita?
+                                                        </h5>
+                                                        <div class="modal-footer d-flex justify-content-between align-items-center">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close" >
+                                                                NO
+                                                            </button>
+                                                            <button type="submit" class="btn btn-primary" style="background-color:#ef6603;">
+                                                                SI
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <div class="mb-5">
+                    </div>
+                {% endif %}
+            </div>
+        </main>
+        
+        
+
+        <!-- Scroll Top -->
+        <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
+            <i class="bi bi-arrow-up-short"></i>
+        </a>
+
+        <!-- Preloader -->
+        <div id="preloader"></div>
+
+        {% if not request.user.is_authenticated %}
+            <div class="modal fade" id="loginmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 5050 !important;">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="background-color: rgba(73, 80, 87, 0.8);">
+                        <div class="modal-header text-light">
+                            <h5 class="modal-title text-white" id="exampleModalLabel">Login</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color: #ffffff;"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="../../../../../../../../login/" method="POST">
+                                {% csrf_token %}
+                                <div class="input-group my-3">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"></path>
+                                        </svg>
+                                    </span>
+                                    {{login_form.username}}
+                                </div>
+                                <div class="input-group my-3">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-key-fill" viewBox="0 0 16 16">
+                                            <path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2M2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2"></path>
+                                        </svg>
+                                    </span>
+                                    {{login_form.password}}
+                                </div>
+                                <div class="modal-footer d-flex justify-content-between align-items-center">
+                                    <a href="../../../../../../../../forget_pass/" class="logo-default d-flex justify-content-center align-items-center">
+                                        <p class="text-white">Forgot Password</p>
+                                    </a>
+                                    <button type="submit" class="btn btn-primary" style="background-color:#ef6603;">
+                                        Iniciar Sesión
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="loginregister" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 5050 !important;">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="background-color: rgba(73, 80, 87, 0.8);">
+                        <div class="modal-header text-light">
+                            <h5 class="modal-title text-white" id="exampleModalLabel">Register</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color: #ffffff;"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="../../../../../../../../register/" method="POST" id="register_form">
+                                {% csrf_token %}
+                                <div class="input-group my-3">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"></path>
+                                        </svg>
+                                    </span>
+                                    {{register_form.fname}}
+                                </div>
+                                <div class="input-group my-3">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"></path>
+                                        </svg>
+                                    </span>
+                                    {{register_form.lname}}
+                                </div>
+                                <div class="input-group my-3">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"></path>
+                                        </svg>
+                                    </span>
+                                    {{register_form.username}}
+                                </div>
+                                <div class="input-group my-3">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-envelope-at" viewBox="0 0 16 16">
+                                            <path d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2zm3.708 6.208L1 11.105V5.383zM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2z"/>
+                                            <path d="M14.247 14.269c1.01 0 1.587-.857 1.587-2.025v-.21C15.834 10.43 14.64 9 12.52 9h-.035C10.42 9 9 10.36 9 12.432v.214C9 14.82 10.438 16 12.358 16h.044c.594 0 1.018-.074 1.237-.175v-.73c-.245.11-.673.18-1.18.18h-.044c-1.334 0-2.571-.788-2.571-2.655v-.157c0-1.657 1.058-2.724 2.64-2.724h.04c1.535 0 2.484 1.05 2.484 2.326v.118c0 .975-.324 1.39-.639 1.39-.232 0-.41-.148-.41-.42v-2.19h-.906v.569h-.03c-.084-.298-.368-.63-.954-.63-.778 0-1.259.555-1.259 1.4v.528c0 .892.49 1.434 1.26 1.434.471 0 .896-.227 1.014-.643h.043c.118.42.617.648 1.12.648m-2.453-1.588v-.227c0-.546.227-.791.573-.791.297 0 .572.192.572.708v.367c0 .573-.253.744-.564.744-.354 0-.581-.215-.581-.8Z"/>
+                                        </svg>
+                                    </span>
+                                    {{register_form.email}}
+                                </div>
+                                <div class="input-group my-3">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-phone" viewBox="0 0 16 16">
+                                            <path d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                            <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                                        </svg>
+                                    </span>
+                                    {{register_form.phone}}
+                                </div>
+                                <div class="input-group my-3">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-key-fill" viewBox="0 0 16 16">
+                                            <path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2M2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2"></path>
+                                        </svg>
+                                    </span>
+                                    {{register_form.password1}}
+                                </div>
+                                <div class="input-group my-3">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-key-fill" viewBox="0 0 16 16">
+                                            <path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2M2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2"></path>
+                                        </svg>
+                                    </span>
+                                    {{register_form.password2}}
+                                </div>
+                                <div class="modal-footer">
+                                    <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+                                    <button type="submit" class="btn btn-primary" id="btn_register" style="background-color:#ef6603;">Register</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        {% if not servicios.inmigracion or servicios.inmigracion.habilitado == True %}
+            <div class="modal fade" id="modal_inmigracion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 5050 !important;">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="background-color: rgba(73, 80, 87, 0.8);">
+                        <div class="modal-header text-light">
+                            <h5 class="modal-title text-white" id="exampleModalLabel">Nueva Cita para Trámite de Inmigración</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color: #ffffff;"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="../../../../../../../../../../../../../../nueva_cita/inmigracion/" method="POST">
+                                {% csrf_token %}
+                                <label class="fw-semibold mt-3 text-white">Selecione una descripción</label>
+                                <select required class="form-select" id="example-select" name="descripcion">
+                                    <option selected value="">Seleccione una descripción</option>
+                                    <option value="Asesoría en Solicitudes de Visas">
+                                        Asesoría en Solicitudes de Visas
+                                    </option>
+                                    <option value="Procesamiento de Residencia Permanente (Green Card)">
+                                        Procesamiento de Residencia Permanente (Green Card)
+                                    </option>
+                                    <option value="Ciudadanía y Naturalización">
+                                        Ciudadanía y Naturalización
+                                    </option>
+                                    <option value="Renovación y Reemplazo de Documentos">
+                                        Renovación y Reemplazo de Documentos
+                                    </option>
+                                    <option value="Defensa en Casos de Deportación">
+                                        Defensa en Casos de Deportación
+                                    </option>
+                                    <option value="Otra">
+                                        Otra
+                                    </option>
+                                </select>
+
+                                <label class="fw-semibold mt-3 text-white">Selecione una fecha</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"
+                                        id="basic-addon1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-calendar4-week nav-main-link-icon" viewBox="0 0 16 16">
+                                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
+                                            <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z" />
+                                        </svg>
+                                    </span>
+                                    <input required name="fecha" type="text" class="form-control" id="datepicker_nueva_cita_cliente_inmigracion" placeholder="Seleccione una fecha">
+                                </div>
+                                
+                                <label class="fw-semibold mt-3 text-white">Detalles</label>
+                                <textarea name="detalles" cols="40" rows="6" class="form-control" placeholder="Inserte los detalles de la cita" required id="id_message"></textarea>
+
+                                <div class="modal-footer d-flex justify-content-between align-items-center">
+                                    <button type="button" class="btn btn-secondary">
+                                        Cancelar
+                                    </button>
+                                    <button type="submit" class="btn btn-primary" style="background-color:#ef6603;">
+                                        Solicitar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        {% if not servicios.impuestos or servicios.impuestos.habilitado == True %}
+            <div class="modal fade" id="modal_impuestos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 5050 !important;">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="background-color: rgba(73, 80, 87, 0.8);">
+                        <div class="modal-header text-light">
+                            <h5 class="modal-title text-white" id="exampleModalLabel">Nueva Cita para Servicios de Impuestos</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color: #ffffff;"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="../../../../../../../../../../../../../../nueva_cita/impuestos/" method="POST">
+                                {% csrf_token %}
+                                <label class="fw-semibold mt-3 text-white">Selecione una descripción</label>
+                                <select required class="form-select" id="example-select" name="descripcion">
+                                    <option selected value>Seleccione una descripción</option>
+                                    <option value="Preparación de Declaraciones de Impuestos">
+                                        Preparación de Declaraciones de Impuestos
+                                    </option>
+                                    <option value="Planificación Fiscal">
+                                        Planificación Fiscal
+                                    </option>
+                                    <option value="Asesoría en Cumplimiento Tributario">
+                                        Asesoría en Cumplimiento Tributario
+                                    </option>
+                                    <option value="Resolución de Problemas con el IRS">
+                                        Resolución de Problemas con el IRS
+                                    </option>
+                                    <option value="Consultoría para Pequeñas Empresas">
+                                        Consultoría para Pequeñas Empresas
+                                    </option>
+                                    <option value="Otra">
+                                        Otra
+                                    </option>
+                                </select>
+
+                                <label class="fw-semibold mt-3 text-white">Selecione una fecha</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"
+                                        id="basic-addon1">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24"
+                                            fill="currentColor"
+                                            class="bi bi-calendar4-week nav-main-link-icon"
+                                            viewBox="0 0 16 16">
+                                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
+                                            <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z" />
+                                        </svg>
+                                    </span>
+                                    <input type="text" name="fecha" class="form-control" id="datepicker_nueva_cita_impuestos" placeholder="Seleccione una fecha">
+                                </div>
+                                
+                                <label class="fw-semibold mt-3 text-white">Detalles</label>
+                                <textarea name="detalles" cols="40" rows="6" class="form-control" placeholder="Inserte los detalles de la cita" required="" id="id_message"></textarea>
+
+                                <div class="modal-footer d-flex justify-content-between align-items-center">
+                                    <button type="button" class="btn btn-secondary">
+                                        Cancelar
+                                    </button>
+                                    <button type="submit" class="btn btn-primary" style="background-color:#ef6603;">
+                                        Solicitar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        {% if not servicios.consultoria or servicios.consultoria.habilitado == True %}
+            <div class="modal fade" id="modal_consultoria" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 5050 !important;">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="background-color: rgba(73, 80, 87, 0.8);">
+                        <div class="modal-header text-light">
+                            <h5 class="modal-title text-white" id="exampleModalLabel">Nueva Cita para Consultoría Financiera</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color: #ffffff;"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="../../../../../../../../../../../../../../nueva_cita/consultoria/" method="POST">
+                                {% csrf_token %}
+                                <label class="fw-semibold mt-3 text-white">Selecione una fecha</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-calendar4-week nav-main-link-icon" viewBox="0 0 16 16">
+                                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
+                                            <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z" />
+                                        </svg>
+                                    </span>
+                                    <input type="text" name="fecha" class="form-control" id="datepicker_nueva_cita_consultoria" placeholder="Seleccione una fecha">
+                                </div>
+                                
+                                <label class="fw-semibold mt-3 text-white">Detalles</label>
+                                <textarea name="detalles" cols="40" rows="6" class="form-control" placeholder="Inserte los detalles de la cita" required="" id="id_message"></textarea>
+
+                                <div class="modal-footer d-flex justify-content-between align-items-center">
+                                    <button type="button" class="btn btn-secondary">
+                                        Cancelar
+                                    </button>
+                                    <button type="submit" class="btn btn-primary" style="background-color:#ef6603;">
+                                        Solicitar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        {% if not servicios.mentoria or servicios.mentoria.habilitado == True %}
+            <div class="modal fade" id="modal_mentoria" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 5050 !important;">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="background-color: rgba(73, 80, 87, 0.8);">
+                        <div class="modal-header text-light">
+                            <h5 class="modal-title text-white" id="exampleModalLabel">Nueva Cita para Mentoría Personalizada</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color: #ffffff;"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="../../../../../../../../../../../../../../nueva_cita/mentoria/" method="POST">
+                                {% csrf_token %}
+                                
+                                <label class="fw-semibold mt-3 text-white">Selecione una fecha</label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-calendar4-week nav-main-link-icon" viewBox="0 0 16 16">
+                                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
+                                            <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z" />
+                                        </svg>
+                                    </span>
+                                    <input type="text" name="fecha" class="form-control" id="datepicker_nueva_cita_mentoria" placeholder="Seleccione una fecha">
+                                </div>
+                                
+                                <label class="fw-semibold mt-3 text-white">Detalles</label>
+                                <textarea name="detalles" cols="40" rows="6" class="form-control" placeholder="Inserte los detalles de la cita" required="" id="id_message"></textarea>
+                                <div class="modal-footer d-flex justify-content-between align-items-center">
+                                    <button type="button" class="btn btn-secondary">
+                                        Cancelar
+                                    </button>
+                                    <button type="submit" class="btn btn-primary" style="background-color:#ef6603;">
+                                        Solicitar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="modal fade" id="anti_phishing" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 5050 !important;">
+            <div class="modal-dialog">
+                <div class="modal-content" style="background-color: rgba(73, 80, 87, 0.8);">
+                    <div class="modal-header text-light">
+                        <h5 class="modal-title text-white" id="exampleModalLabel">Configurar código anti-phishing</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background-color: #ffffff;"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="../../../../../../../../../../../../../../set_antiphishing/" method="POST">
+                            {% csrf_token %}
+                            <label class="fw-semibold mt-3 text-white">Inserte su código antiphishing</label>
+                            <textarea name="antiphishing" cols="40" rows="6" class="form-control" placeholder="Ingrese su código antiphishing aquí. Este código es una medida de seguridad adicional para proteger su cuenta contra intentos de fraude."
+                            required="" id="id_message">{% if request.user.antiphishing != None %}{{request.user.antiphishing}}{% endif %}</textarea>
+                            <div class="modal-footer d-flex justify-content-between align-items-center">
+                                <button type="button" class="btn btn-secondary">
+                                    Cancelar
+                                </button>
+                                <a type="button" class="btn btn-danger" href="../../../../../../../../../../../../../../delete_antiphishing/">
+                                    Quitar
+                                </a>
+                                <button type="submit" class="btn btn-primary" style="background-color:#ef6603;">
+                                    Aceptar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if Alerta %}
+            <style>
+                .error-popup {
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    z-index: 1050;
+                    display: none;
+                    max-width: 300px;
+                }
+            </style>
+            <div class="alert alert-danger alert-dismissible fade show error-popup" role="alert" id="errorPopup">
+                <strong class="d-block">Error! </strong>
+                {{Alerta}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <script>
+                var errorPopup = document.getElementById('errorPopup');
+                errorPopup.style.display = 'block';
+    
+                setTimeout(function() {
+                    var alert = new bootstrap.Alert(errorPopup);
+                    alert.close();
+                }, 10000);
+            </script>
+        {% endif %}
+
+
+        <script src="{% static 'js/jquery.min.js'%}"></script>
+        <script src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
+        <script>
+            $(document).ready(function(){
+                var enabledDates = [
+                    {% for x in fechas_disponibles %}
+                        '{{x}}',
+                    {% endfor %}
+                ]; // Fechas habilitadas
+                function enableSpecificDates(date) {
+                    var formattedDate = $.fn.datepicker.DPGlobal.formatDate(date, 'yyyy-mm-dd', 'en');
+                    return enabledDates.includes(formattedDate);
+                }
+                $('#datepicker').datepicker({
+                    format: 'yyyy-mm-dd',
+                    beforeShowDay: function(date) {
+                        if (enableSpecificDates(date)) {
+                            return {enabled: true};
+                        } else {
+                            return {enabled: false, classes: 'disabled'};
+                        }
+                    }
+                });
+                $('#datepicker_nueva_cita_cliente_inmigracion').datepicker({
+                    format: 'yyyy-mm-dd',
+                    beforeShowDay: function(date) {
+                        if (enableSpecificDates(date)) {
+                            return {enabled: true};
+                        } else {
+                            return {enabled: false, classes: 'disabled'};
+                        }
+                    }
+                });
+                $('#datepicker_nueva_cita_impuestos').datepicker({
+                    format: 'yyyy-mm-dd',
+                    beforeShowDay: function(date) {
+                        if (enableSpecificDates(date)) {
+                            return {enabled: true};
+                        } else {
+                            return {enabled: false, classes: 'disabled'};
+                        }
+                    }
+                });
+                $('#datepicker_nueva_cita_consultoria').datepicker({
+                    format: 'yyyy-mm-dd',
+                    beforeShowDay: function(date) {
+                        if (enableSpecificDates(date)) {
+                            return {enabled: true};
+                        } else {
+                            return {enabled: false, classes: 'disabled'};
+                        }
+                    }
+                });
+                $('#datepicker_nueva_cita_mentoria').datepicker({
+                    format: 'yyyy-mm-dd',
+                    beforeShowDay: function(date) {
+                        if (enableSpecificDates(date)) {
+                            return {enabled: true};
+                        } else {
+                            return {enabled: false, classes: 'disabled'};
+                        }
+                    }
+                });
+                
+            });
+        </script>
+        <!-- Vendor JS Files -->
+        <script src="{% static 'client/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'client/assets/vendor/php-email-form/validate.js' %}"></script>
+        <script src="{% static 'client/assets/vendor/aos/aos.js' %}"></script>
+        <script src="{% static 'client/assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+        <script src="{% static 'client/assets/vendor/imagesloaded/imagesloaded.pkgd.min.js' %}"></script>
+        <script src="{% static 'client/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+        <script src="{% static 'client/assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+        <!-- Main JS File -->
+        <script src="{% static 'client/assets/js/main.js' %}"></script>
+    </body>
+</html>

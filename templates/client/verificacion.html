@@ -1,0 +1,113 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>DIBAX_TAX_LLC</title>
+        
+        <!-- Favicon and touch Icons -->
+        <link href="{% static 'img/logo3.1.JPG' %}" rel="shortcut icon" type="image/png">        
+
+        <link rel="stylesheet" id="css-main" href="{% static 'admin/css/codebase.min-5.8.css' %} ">
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HQDQJJYW7"></script>
+        <script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-9HQDQJJYW7');</script>
+    </head>
+    <body>
+        <div id="page-container" class="main-content-boxed">
+            <main id="main-container">
+                <div class="bg-image"
+                    style="background-image: url('{% static 'img/bg_5.jpeg' %}');">
+                    <div class="row mx-0 bg-pulse-op">
+                        <div class="hero-static col-md-6 col-xl-8 d-none d-md-flex align-items-md-end">
+                            <div class="p-4">
+                                <p class="fs-3 fw-semibold text-white">
+                                    You are awesome! Build something amazing!
+                                </p>
+                                <p class="text-white-75 fw-medium">
+                                    Copyright &copy; 
+                                    <span data-toggle="year-copy"></span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="hero-static col-md-6 col-xl-4 d-flex align-items-center bg-body-extra-light p-0">
+                            <div class="content content-full">
+                                <div class="py-4 text-center text-md-start">
+                                    <a class="link-fx fw-bold" href="../../../../../../../../../../logout/">
+                                        <span class="fs-4 text-body-color">DIBAX</span>
+                                        <span class="fs-4">TAX</span>
+                                        <span class="fs-4 text-body-color">LLC</span>
+                                    </a>
+                                    <div class="mb-4 mt-5">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-lock si si-lock-open fa-3x" viewBox="0 0 16 16">
+                                            <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2M5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1"/>
+                                        </svg>
+                                    </div>
+                                    <h1 class="h3 fw-bold mb-2">Authenticate your account</h1>
+                                    <h2 class="fs-5 lh-base fw-normal text-muted mb-0" id="text-sidebar">
+                                        Please confirm your account by entering the
+                                        authorization code sent to your email 
+                                        {{email}}.
+                                    </h2>
+                                </div>
+                                {% if Alerta %}
+                                        <div class="alert alert-danger alert-dismissible" role="alert" id="continer_alert">
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" id="close_alert"></button>
+                                            <h3 class="alert-heading fs-5 fw-bold mb-1">Error</h3>
+                                            <p class="mb-0">
+                                                {{Alerta}}
+                                            </p>
+                                        </div>
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', function() {
+                                                document.getElementById("text-sidebar").classList.add('d-none');
+                                                document.getElementById("close_alert").addEventListener('click', function(e) {
+                                                    let alertContainer = document.getElementById("continer_alert");
+                                                    let textSidebar = document.getElementById("text-sidebar");
+                                                    
+                                                    if (alertContainer) {
+                                                        alertContainer.classList.add('d-none');
+                                                    }
+                                                    
+                                                    if (textSidebar) {
+                                                        textSidebar.classList.remove('d-none');
+                                                    }
+                                                });
+                                            });
+                                        </script>
+                                    {% endif %}
+                                <div class="text-center text-md-start">
+                                    <form id="form-2fa" action="{{action_form}}" method="POST" class="py-4">
+                                        {% csrf_token %}
+                                        <div class="d-flex items-center justify-content-center justify-content-md-start gap-2 mb-4">
+                                            {{ form.num1 }}
+                                            {{ form.num2 }}
+                                            {{ form.num3 }}
+                                            <span class="d-flex align-items-center">-</span>
+                                            {{ form.num4 }}
+                                            {{ form.num5 }}
+                                            {{ form.num6 }}
+                                        </div>
+                                        <div>
+                                            <button type="submit" class="btn btn-lg btn-alt-primary px-6 py-2 fw-semibold">
+                                                Submit
+                                            </button>
+                                        </div>
+                                    </form>                                    
+                                    <p class="fs-sm text-muted py-4 mb-0">
+                                        Haven't received it? 
+                                        <a href="../../../../../../../../dibax_admin/forgot_pass/{{email}}/">
+                                            Resend a new code
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+        <script src="{% static 'admin/js/codebase.app.min-5.8.js' %}"></script>
+        <script src="{% static 'admin/js/op_auth_two_factor.min.js' %}"></script>
+    </body>
+</html>

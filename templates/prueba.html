@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración de Perfil</title>
+    <link href="C:\Users\KHR\Desktop\USA\Citas\statics\client\assets\vendor\bootstrap\css\bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4 text-center mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                </svg>
+                <div class="list-group">
+                    <a href="#profile" class="list-group-item list-group-item-action active" data-bs-toggle="list">Perfil</a>
+                    <a href="#password" class="list-group-item list-group-item-action" data-bs-toggle="list">Cambiar Contraseña</a>
+                    <a href="#security" class="list-group-item list-group-item-action" data-bs-toggle="list">Seguridad</a>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="profile">
+                        <h3>Actualizar Perfil</h3>
+                        <form>
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Nombre de Usuario</label>
+                                <input type="text" class="form-control" id="username" placeholder="Ingrese su nombre de usuario">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="email" placeholder="Ingrese su correo electrónico">
+                            </div>
+                            <div class="mb-3">
+                                <label for="bio" class="form-label">Biografía</label>
+                                <textarea class="form-control" id="bio" rows="3" placeholder="Cuéntanos algo sobre ti"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="password">
+                        <h3>Cambiar Contraseña</h3>
+                        <form>
+                            <div class="mb-3">
+                                <label for="currentPassword" class="form-label">Contraseña Actual</label>
+                                <input type="password" class="form-control" id="currentPassword" placeholder="Ingrese su contraseña actual">
+                            </div>
+                            <div class="mb-3">
+                                <label for="newPassword" class="form-label">Nueva Contraseña</label>
+                                <input type="password" class="form-control" id="newPassword" placeholder="Ingrese su nueva contraseña">
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmPassword" class="form-label">Confirmar Nueva Contraseña</label>
+                                <input type="password" class="form-control" id="confirmPassword" placeholder="Confirme su nueva contraseña">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="security">
+                        <h3>Configuración de Seguridad</h3>
+                        <form>
+                            <div class="mb-3">
+                                <label for="antiphishingCode" class="form-label">Código Antiphishing</label>
+                                <textarea class="form-control" id="antiphishingCode" rows="3" placeholder="Ingrese su código antiphishing aquí. Este código es una medida de seguridad adicional para proteger su cuenta contra intentos de fraude."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="..\statics\client\assets\vendor\bootstrap\js\bootstrap.bundle.min.js"></script>
+</body>
+</html>

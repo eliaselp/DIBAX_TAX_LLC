@@ -1,0 +1,117 @@
+{% extends "admin/home_admin.html" %}
+
+{% block contenido %}
+<main id="main-container">
+    <div class="content">
+        <div class="block block-rounded mb-0">
+            <div class="block-content block-content-full">
+                <div class="py-3 text-center">
+                    <h1 class="h3 fw-extrabold mb-1">
+                        Buzón de entrada
+                    </h1>
+                </div>
+            </div>
+        </div>
+        {% if not mensajes %}
+            <div class="py-3 text-center mt-5">
+                <h1 class="h3 fw-extrabold mb-1">
+                    No hay mensajes en el buzón
+                </h1>
+            </div>
+        {% endif %}
+        <div class="row mt-2">
+            {% for mm in mensajes %}
+                <div class="col-1 col-md-2"></div>
+                <div class="col-10 col-md-8">
+                    <div class="block block-rounded">
+                        <div class="block-header block-header-default">
+                            {% if mm.clienteid.Verificado %}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="gold" class="bi bi-patch-check-fill mx-2" viewBox="0 0 16 16">
+                                    <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zm.287 5.984-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
+                                </svg>
+                            {% endif %}
+                            <h3 class="block-title">{{mm.fecha}} :  {{mm.asunto}}</h3>
+                        </div>
+                        <div class="block-content">
+                            {% if mm.clienteid %}
+                                <div class="mb-1">
+                                    <label class="h5 d-inline">Nombre: </label><p class="d-inline">{{mm.clienteid.First_Name}} {{mm.clienteid.Last_Name}}</p>
+                                </div>
+                                <div class="mb-1">
+                                    <label class="h5 d-inline">Teléfono: </label><p class="d-inline">{{mm.clienteid.Phone}}</p>
+                                </div>
+                                <div class="mb-1">
+                                    <label class="h5 d-inline">Email: </label><p class="d-inline">{{mm.clienteid.email}}</p>
+                                </div>
+                            {% else %}
+                                <div class="mb-1">                                    
+                                    <label class="h5 d-inline">Nombre: </label><p class="d-inline">{{mm.nombre}}</p>
+                                </div>
+                                <div class="mb-1">
+                                    <label class="h5 d-inline">Teléfono: </label><p class="d-inline">{{mm.phone}}</p>
+                                </div>
+                                <div class="mb-1">
+                                    <label class="h5 d-inline">Email: </label><p class="d-inline">{{mm.email}}</p>
+                                </div>
+                            {% endif %}
+                            <div class="mb-1">
+                                <label class="h5 mt-2 mb-0">Mensaje: </label>
+                                <p>{{mm.mensaje}}</p>
+                            </div>
+                        </div>
+                        <div class="block-content block-content-full block-content-sm bg-body-light fs-sm">
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-alt-danger mr-1"
+                                data-bs-toggle="modal"
+                                data-bs-target="#eliminar_mensaje_{{mm.id}}">
+                                    Eliminar
+                                </button>
+                                <div class="modal fade" id="eliminar_mensaje_{{mm.id}}" tabindex="-1"
+                                    aria-labelledby="modal-slideup" style="display: none;"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-slideup" role="document">
+                                        <div class="modal-content">
+                                            <div class="block block-rounded shadow-none mb-0">
+                                                <div class="block-header block-header-default">
+                                                    <h3 class="block-title fw-black fs-4">Eliminar Cita</h3>
+                                                    <div class="block-options">
+                                                        <button type="button" class="btn-block-option"
+                                                            data-bs-dismiss="modal" aria-label="Close">
+                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                width="24" height="24"
+                                                                fill="currentColor"
+                                                                class="bi bi-x-lg fa fa-times"
+                                                                viewBox="0 0 16 16">
+                                                                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="block-content fs-sm">
+                                                    <h5 class="block-title fw-black fs-4">
+                                                        Esta seguro que desea eliminar esta mensaje?
+                                                    </h5>
+                                                </div>
+                                                <div class="block-content block-content-full block-content-sm text-end border-top mt-4 d-flex justify-content-between">
+                                                    <button type="button" class="btn btn-alt-secondary"
+                                                        data-bs-dismiss="modal">
+                                                        No
+                                                    </button>
+                                                    <a href="../../../../../../../../../../../../../../dibaz_admin/eliminar_mensaje/{{mm.id}}/" type="button" class="btn btn-alt-danger mr-1">
+                                                        Si
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1 col-md-2"></div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+{% endblock %}

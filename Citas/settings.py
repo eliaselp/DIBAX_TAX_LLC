@@ -102,11 +102,3 @@ SESSION_TIMEOUT_REDIRECT = "../../../../../../../../../../../../"
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-
-SECURE_SSL_REDIRECT = True  # Redirige todo el tráfico HTTP a HTTPS
-SECURE_HSTS_SECONDS = 3600  # Habilita HSTS (HTTP Strict Transport Security)
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Aplica HSTS a todos los subdominios
-SECURE_HSTS_PRELOAD = True  # Permite la precarga de HSTS
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  # Configura el encabezado SSL

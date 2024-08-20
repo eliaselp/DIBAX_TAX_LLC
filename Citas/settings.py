@@ -102,3 +102,8 @@ SESSION_TIMEOUT_REDIRECT = "../../../../../../../../../../../../"
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+CSRF_COOKIE_SECURE = True # O True si usas HTTPS
+CSRF_TRUSTED_ORIGINS = ['https://dibaztaxllc.ddns.net','http://localhost:8000','http://localhost']

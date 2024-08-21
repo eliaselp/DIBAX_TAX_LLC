@@ -1,0 +1,1938 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>DIBAZ_TAX_LLC | ADMIN</title>
+        <meta name="robots" content="noindex, nofollow">
+        <!-- Favicon and touch Icons -->
+        <link href="{% static 'img/logo00.jfif' %}" rel="icon" type="image/x-icon">
+
+        <link href="{% static 'css/bootstrap-datepicker.min.css' %}"
+            rel="stylesheet">
+        <link
+            href="{% static 'client/assets/vendor/bootstrap/css/bootstrap.min.css' %}"
+            rel="stylesheet">
+        <link rel="stylesheet" id="css-main"
+            href="{% static 'admin/css/codebase.min-5.8.css' %}">
+        <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-9HQDQJJYW7"></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-9HQDQJJYW7');</script>-->
+    </head>
+    <body>
+        <div id="page-container"
+            class="sidebar-o sidebar-dark sidebar-mini enable-page-overlay side-scroll page-header-fixed page-header-glass page-header-dark main-content-boxed">
+            <aside id="side-overlay">
+                <div class="content-header">
+                    <a class="img-link me-2">
+                        <img class="img-avatar img-avatar32"
+                            src="{% static 'img/logo_usuario.jpg' %}" alt>
+                    </a>
+                    <a class="link-fx text-body-color-dark fw-semibold fs-sm">
+                        DIBAZ ADMIN
+                    </a>
+                    <button type="button"
+                        class="btn btn-sm btn-alt-danger ms-auto"
+                        data-toggle="layout" data-action="side_overlay_close">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                            height="16" fill="currentColor" class="bi bi-x-lg"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="content-side">
+                    <div id="accordion" role="tablist"
+                        aria-multiselectable="true">
+                        <div class="block block-bordered block-rounded mb-2">
+                            <div class="block-header" role="tab"
+                                id="accordion_h1">
+                                <a class="block-header bg-body-light w-100" data-bs-toggle="collapse" data-bs-parent="#accordion"
+                                    href="#accordion_q1"
+                                    aria-expanded="false"
+                                    aria-controls="accordion_q1">
+                                    <h3 class="block-title">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            width="20" height="20"
+                                            fill="currentColor"
+                                            class="bi bi-clock"
+                                            viewBox="0 0 16 16">
+                                            <path
+                                                d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z" />
+                                            <path
+                                                d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0" />
+                                        </svg>
+                                        Activity
+                                    </h3>
+                                </a>
+                            </div>
+                            <div id="accordion_q1" class="collapse"
+                                role="tabpanel" aria-labelledby="accordion_h1"
+                                data-bs-parent="#accordion" style>
+                                <div class="block-content">
+                                    <ul class="list list-activity mb-0">
+                                        {% for k in citas_de_hoy %}
+                                            <li class="border py-3 shadow-sm">
+                                                <div class="fs-sm fw-semibold">{{k.servicio}} - {% if k.descripcion %}{{k.descripcion}}{% endif %}</div>
+                                                <div class="fs-sm">
+                                                    {% if k.clienteid %}
+                                                        <p class="fw-semibold d-inline">Nombre: </p><br>
+                                                        <a>
+                                                            {{k.clienteid.First_Name}} {{k.clienteid.Last_Name}}
+                                                        </a><br>
+                                                        <p class="fw-semibold d-inline">Teléfono: </p><br>
+                                                        <a>{{k.clienteid.Phone}}</a>
+                                                    {% else %}
+                                                        <a>Nombre: {{k.nombre}}</a>
+                                                        <a>Teléfono: {{k.phone}}</a>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="fs-xs text-muted">Hora: {{k.hora}}</div>
+                                            </li>
+                                        {% endfor %}
+                                        
+                                        {% if not citas_de_hoy %}
+                                            <li class="border py-3 shadow-sm">
+                                                <div class="fs-sm fw-semibold">No hay actividades registradas para Hoy</div>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block block-bordered block-rounded mb-2">
+                            <div class="block-header" role="tab"
+                                id="accordion_h2">
+                                <a class="block-header bg-body-light w-100" data-bs-toggle="collapse" data-bs-parent="#accordion" href="#accordion_q2" aria-expanded="false" aria-controls="accordion_q2">
+                                    <h3 class="block-title">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                            <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325" />
+                                        </svg>
+                                        Profile
+                                    </h3>
+                                </a>
+                            </div>
+                            <div id="accordion_q2" class="collapse" role="tabpanel" aria-labelledby="accordion_h2" data-bs-parent="#accordion" style>
+                                <div class="block-content">
+                                    <form action="../../../../../../../../../../../../../../dibaz_admin/perfil/"
+                                        method="POST">
+                                        {% csrf_token %}
+                                        <div class="mb-3">
+                                            <label class="form-label" for="side-overlay-profile-name">
+                                                Username
+                                            </label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="username"
+                                                    placeholder="Your username.."
+                                                    value="{{request.user}}" required>
+                                                <span class="input-group-text">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                                                    </svg>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="side-overlay-profile-email">Email</label>
+                                            <div class="input-group">
+                                                <input type="email" class="form-control" name="email"
+                                                    placeholder="Your email.."
+                                                    value="{{request.user.email}}" required>
+                                                <span class="input-group-text">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-at-fill" viewBox="0 0 16 16">
+                                                        <path d="M2 2A2 2 0 0 0 .05 3.555L8 8.414l7.95-4.859A2 2 0 0 0 14 2zm-2 9.8V4.698l5.803 3.546zm6.761-2.97-6.57 4.026A2 2 0 0 0 2 14h6.256A4.5 4.5 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586zM16 9.671V4.697l-5.803 3.546.338.208A4.5 4.5 0 0 1 12.5 8c1.414 0 2.675.652 3.5 1.671" />
+                                                        <path d="M15.834 12.244c0 1.168-.577 2.025-1.587 2.025-.503 0-1.002-.228-1.12-.648h-.043c-.118.416-.543.643-1.015.643-.77 0-1.259-.542-1.259-1.434v-.529c0-.844.481-1.4 1.26-1.4.585 0 .87.333.953.63h.03v-.568h.905v2.19c0 .272.18.42.411.42.315 0 .639-.415.639-1.39v-.118c0-1.277-.95-2.326-2.484-2.326h-.04c-1.582 0-2.64 1.067-2.64 2.724v.157c0 1.867 1.237 2.654 2.57 2.654h.045c.507 0 .935-.07 1.18-.18v.731c-.219.1-.643.175-1.237.175h-.044C10.438 16 9 14.82 9 12.646v-.214C9 10.36 10.421 9 12.485 9h.035c2.12 0 3.314 1.43 3.314 3.034zm-4.04.21v.227c0 .586.227.8.581.8.31 0 .564-.17.564-.743v-.367c0-.516-.275-.708-.572-.708-.346 0-.573.245-.573.791" />
+                                                    </svg>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="side-overlay-profile-password">
+                                                New Password
+                                            </label>
+                                            <div class="input-group">
+                                                <input type="password" class="form-control"
+                                                    name="password1"
+                                                    placeholder="New Password..">
+                                                <span class="input-group-text">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
+                                                        <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1" />
+                                                    </svg>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="side-overlay-profile-password-confirm">
+                                                Confirm New Password
+                                            </label>
+                                            <div class="input-group">
+                                                <input type="password" class="form-control"
+                                                    name="password2"
+                                                    placeholder="Confirm New Password..">
+                                                <span class="input-group-text">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
+                                                        <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1" />
+                                                    </svg>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-alt-primary w-100 mb-4">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                                                <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41m-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9" />
+                                                <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5 5 0 0 0 8 3M3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z" />
+                                            </svg>
+                                            Update
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block block-bordered block-rounded mb-2">
+                            <div class="block-header" role="tab"
+                                id="accordion_h3">
+                                <a class="block-header bg-body-light w-100" data-bs-toggle="collapse" data-bs-parent="#accordion" href="#accordion_q3" aria-expanded="false" aria-controls="accordion_q3">
+                                    <h3 class="block-title">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-wrench" viewBox="0 0 16 16">
+                                            <path d="M.102 2.223A3.004 3.004 0 0 0 3.78 5.897l6.341 6.252A3.003 3.003 0 0 0 13 16a3 3 0 1 0-.851-5.878L5.897 3.781A3.004 3.004 0 0 0 2.223.1l2.141 2.142L4 4l-1.757.364zm13.37 9.019.528.026.287.445.445.287.026.529L15 13l-.242.471-.026.529-.445.287-.287.445-.529.026L13 15l-.471-.242-.529-.026-.287-.445-.445-.287-.026-.529L11 13l.242-.471.026-.529.445-.287.287-.445.529-.026L13 11z" />
+                                        </svg>
+                                        Settings
+                                    </h3>
+                                </a>
+                            </div>
+                            <div id="accordion_q3" class="collapse" role="tabpanel" aria-labelledby="accordion_h3" data-bs-parent="#accordion" style>
+                                <div class="block-content">
+                                    <div class="mb-4">
+                                        <div class="form-check btn btn-outline-light w-100 py-3">
+                                            <a class="form-check-label fw-medium py-3" for="side-overlay-settings-security-verify" href="../../../../../../../../dibaz_admin/set_2fa/">
+                                                {% if not request.user.action_verify %}
+                                                    Activar verificación
+                                                {% else %}
+                                                    Desactivar verificación
+                                                {% endif %}
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <div class="form-check btn btn-outline-light w-100 py-3">
+                                            <a class="form-check-label fw-medium py-3" for="side-overlay-settings-security-verify"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#antiphishing">
+                                                Código Antiphishing
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!--########################################################################################################-->
+            <!--########################################################################################################-->
+            <!--########################################################################################################-->
+
+            <nav id="sidebar">
+                <div class="sidebar-content">
+                    <div class="content-header justify-content-lg-center">
+                        <div>
+                            <span
+                                class="smini-visible fw-bold tracking-wide fs-lg">
+                                D<span class="text-primary">T</span>
+                            </span>
+                            <a class="link-fx fw-bold tracking-wide mx-auto"
+                                href="../../../../../../../../../../../../../../dibaz_admin/home/">
+                                <span class="smini-hidden">
+                                    <span class="fs-4 text-dual">DIBAZ</span>
+                                    <span class="fs-4 text-primary">TAX</span>
+                                    <span class="fs-4 text-dual">ADMIN</span>
+                                </span>
+                            </a>
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-sm btn-alt-danger d-lg-none" data-toggle="layout" data-action="sidebar_close">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    width="16" height="16" fill="currentColor"
+                                    class="bi bi-x-lg" viewBox="0 0 16 16">
+                                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="js-sidebar-scroll">
+                        <div class="content-side content-side-user px-0 py-0">
+                            <div
+                                class="smini-visible-block animated fadeIn px-3">
+                                <img class="img-avatar img-avatar32"
+                                    src="{% static 'img/logo_usuario.jpg' %}"
+                                    alt>
+                            </div>
+                            <div class="smini-hidden text-center mx-auto">
+                                <a class="img-link"
+                                    href="be_pages_generic_profile.html">
+                                    <img class="img-avatar"
+                                        src="{% static 'img/logo_usuario.jpg' %}"
+                                        alt>
+                                </a>
+                                <ul class="list-inline mt-3 mb-0">
+                                    <li class="list-inline-item">
+                                        <a
+                                            class="link-fx text-dual fs-sm fw-semibold text-uppercase"
+                                            href="be_pages_generic_profile.html">{{request.user}}</a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a class="link-fx text-dual"
+                                            data-toggle="layout"
+                                            data-action="dark_mode_toggle"
+                                            href="javascript:void(0)">
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="24" height="24"
+                                                fill="currentColor"
+                                                class="bi bi-moon-fill"
+                                                viewBox="0 0 16 16">
+                                                <path
+                                                    d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278" />
+                                            </svg>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a class="link-fx text-dual"
+                                            href="../../../../../../../../../../../../../../dibaz_admin/logout/">
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="24" height="24"
+                                                fill="currentColor"
+                                                class="bi bi-door-open-fill"
+                                                viewBox="0 0 16 16">
+                                                <path
+                                                    d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15zM11 2h.5a.5.5 0 0 1 .5.5V15h-1zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1" />
+                                            </svg>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="content-side content-side-full">
+                            <ul class="nav-main">
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link"
+                                        href="../../../../../../../../../../../../../../dibaz_admin/">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24"
+                                            fill="currentColor"
+                                            class="bi bi-house-fill nav-main-link-icon fa fa-house-user"
+                                            viewBox="0 0 16 16">
+                                            <path
+                                                d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z" />
+                                            <path
+                                                d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z" />
+                                        </svg>
+                                        <span
+                                            class="nav-main-link-name">Dashboard</span>
+                                    </a>
+                                </li>
+
+                                <li class="nav-main-heading">Portal Web</li>
+
+                                <!--####################################################################################-->
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link"
+                                        data-toggle="submenu"
+                                        aria-haspopup="true"
+                                        aria-expanded="true">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24"
+                                            fill="currentColor"
+                                            class="bi bi-person-lines-fill nav-main-link-icon"
+                                            viewBox="0 0 16 16">
+                                            <path
+                                                d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1z" />
+                                        </svg>
+                                        <span
+                                            class="nav-main-link-name">Contacto</span>
+                                    </a>
+                                    <ul class="nav-main-submenu">
+                                        <li class="nav-main-item">
+                                            <a class="nav-main-link"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#modal-slideup">
+                                                <span
+                                                    class="nav-main-link-name">Dirección</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-main-item">
+                                            <a class="nav-main-link"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#modal-setmeta_telefono">
+                                                <span
+                                                    class="nav-main-link-name">Teléfono</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-main-item">
+                                            <a class="nav-main-link"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#modal-setmeta_email">
+                                                <span
+                                                    class="nav-main-link-name">Email</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link" href="../../../../../../../../../../../../../../dibaz_admin/buzon/">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-mailbox-flag nav-main-link-icon" viewBox="0 0 16 16">
+                                            <path d="M10.5 8.5V3.707l.854-.853A.5.5 0 0 0 11.5 2.5v-2A.5.5 0 0 0 11 0H9.5a.5.5 0 0 0-.5.5v8zM5 7c0 .334-.164.264-.415.157C4.42 7.087 4.218 7 4 7s-.42.086-.585.157C3.164 7.264 3 7.334 3 7a1 1 0 0 1 2 0"/>
+                                            <path d="M4 3h4v1H6.646A4 4 0 0 1 8 7v6h7V7a3 3 0 0 0-3-3V3a4 4 0 0 1 4 4v6a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V7a4 4 0 0 1 4-4m0 1a3 3 0 0 0-3 3v6h6V7a3 3 0 0 0-3-3"/>
+                                        </svg>
+                                        <span class="nav-main-link-name">
+                                            Buzon de Entrada
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link"
+                                        data-toggle="submenu"
+                                        aria-haspopup="true"
+                                        aria-expanded="true">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24"
+                                            fill="currentColor"
+                                            class="bi bi-calendar4-week nav-main-link-icon"
+                                            viewBox="0 0 16 16">
+                                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
+                                            <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z" />
+                                        </svg>
+                                        <span class="nav-main-link-name">Calendario</span>
+                                    </a>
+                                    <ul class="nav-main-submenu">
+                                        <li class="nav-main-item">
+                                            <a class="nav-main-link"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#calendario">
+                                                <span
+                                                    class="nav-main-link-name">Ver
+                                                    Calendario</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-main-item">
+                                            <a class="nav-main-link"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#bloquear_fechas">
+                                                <span
+                                                    class="nav-main-link-name">Bloquear
+                                                    Fechas</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-main-item">
+                                            <a class="nav-main-link"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#habilitar_fechas">
+                                                <span
+                                                    class="nav-main-link-name">Habilitar
+                                                    Fechas</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link"
+                                        data-toggle="submenu"
+                                        aria-haspopup="true"
+                                        aria-expanded="true">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24"
+                                            fill="currentColor"
+                                            class="nav-main-link-icon bi bi-file-earmark-bar-graph"
+                                            viewBox="0 0 16 16">
+                                            <path
+                                                d="M10 13.5a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-6a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5zm-2.5.5a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5zm-3 0a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5z" />
+                                            <path
+                                                d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
+                                        </svg>
+                                        <span
+                                            class="nav-main-link-name">Servicios</span>
+                                    </a>
+                                    <ul class="nav-main-submenu">
+                                        <li class="nav-main-item">
+                                            <a class="nav-main-link"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#modal-inhabilitar-servicio">
+                                                <span class="nav-main-link-name">
+                                                    Bloquear Servicio
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-main-item">
+                                            <a class="nav-main-link"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#modal-habilitar-servicio">
+                                                <span class="nav-main-link-name">
+                                                    Habilitar Servicio
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <!--#########################################################################################-->
+                                <li class="nav-main-heading">Citas</li>
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modal_nueva_cita">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-calendar4-event nav-main-link-icon" viewBox="0 0 16 16">
+                                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
+                                            <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z" />
+                                        </svg>
+                                        <span class="nav-main-link-name">
+                                            Agregar Nueva Cita</span>
+                                    </a>
+                                </li>
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link"
+                                        data-toggle="submenu"
+                                        aria-haspopup="true"
+                                        aria-expanded="true">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24"
+                                            fill="currentColor"
+                                            class="bi bi-bar-chart-steps nav-main-link-icon"
+                                            viewBox="0 0 16 16">
+                                            <path
+                                                d="M.5 0a.5.5 0 0 1 .5.5v15a.5.5 0 0 1-1 0V.5A.5.5 0 0 1 .5 0M2 1.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-4a.5.5 0 0 1-.5-.5zm2 4a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5zm2 4a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-6a.5.5 0 0 1-.5-.5zm2 4a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5z" />
+                                        </svg>
+                                        <span class="nav-main-link-name">Gestion
+                                            de Citas</span>
+                                    </a>
+                                    <ul class="nav-main-submenu">
+                                        <li class="nav-main-item">
+                                            <a class="nav-main-link"
+                                                href="../../../../../../../../../../../../../../dibaz_admin/citas_aprobadas/">
+                                                <span
+                                                    class="nav-main-link-name">Ver
+                                                    Citas Aprobadas</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-main-item">
+                                            <a class="nav-main-link"
+                                                href="../../../../../../../../../../../../../../dibaz_admin/citas_pendientes/">
+                                                <span
+                                                    class="nav-main-link-name">Ver
+                                                    Citas Pendientes</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-main-item">
+                                    <a class="nav-main-link"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modal-cantidad_maxima_citas">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-hash nav-main-link-icon" viewBox="0 0 16 16">
+                                            <path d="M8.39 12.648a1 1 0 0 0-.015.18c0 .305.21.508.5.508.266 0 .492-.172.555-.477l.554-2.703h1.204c.421 0 .617-.234.617-.547 0-.312-.188-.53-.617-.53h-.985l.516-2.524h1.265c.43 0 .618-.227.618-.547 0-.313-.188-.524-.618-.524h-1.046l.476-2.304a1 1 0 0 0 .016-.164.51.51 0 0 0-.516-.516.54.54 0 0 0-.539.43l-.523 2.554H7.617l.477-2.304c.008-.04.015-.118.015-.164a.51.51 0 0 0-.523-.516.54.54 0 0 0-.531.43L6.53 5.484H5.414c-.43 0-.617.22-.617.532s.187.539.617.539h.906l-.515 2.523H4.609c-.421 0-.609.219-.609.531s.188.547.61.547h.976l-.516 2.492c-.008.04-.015.125-.015.18 0 .305.21.508.5.508.265 0 .492-.172.554-.477l.555-2.703h2.242zm-1-6.109h2.266l-.515 2.563H6.859l.532-2.563z"/>
+                                        </svg>
+                                        <span class="nav-main-link-name">
+                                            Máxima Citas Diarias
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!--########################################################################################################-->
+            <!--########################################################################################################-->
+            <!--########################################################################################################-->
+            <!--########################################################################################################-->
+            <header id="page-header">
+                <div class="content-header">
+                    <div class="space-x-1">
+                        <button type="button"
+                            class="btn btn-sm btn-alt-secondary"
+                            data-toggle="layout" data-action="sidebar_toggle">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round"
+                                class="feather feather-menu">
+                                <line x1="3" y1="12" x2="21" y2="12"></line>
+                                <line x1="3" y1="6" x2="21" y2="6"></line>
+                                <line x1="3" y1="18" x2="21" y2="18"></line>
+                            </svg>
+                        </button>
+                        <!--<button type="button"
+                            class="btn btn-sm btn-alt-secondary"
+                            data-toggle="layout" data-action="header_search_on">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                height="24" fill="currentColor"
+                                class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                            </svg>
+                        </button>-->
+                        <div class="dropdown d-inline-block">
+                            <button type="button"
+                                class="btn btn-sm btn-alt-secondary"
+                                id="page-header-themes-dropdown"
+                                data-bs-toggle="dropdown"
+                                data-bs-auto-close="outside"
+                                aria-haspopup="true" aria-expanded="false">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    width="24" height="24" fill="currentColor"
+                                    class="bi bi-wrench" viewBox="0 0 16 16">
+                                    <path d="M.102 2.223A3.004 3.004 0 0 0 3.78 5.897l6.341 6.252A3.003 3.003 0 0 0 13 16a3 3 0 1 0-.851-5.878L5.897 3.781A3.004 3.004 0 0 0 2.223.1l2.141 2.142L4 4l-1.757.364zm13.37 9.019.528.026.287.445.445.287.026.529L15 13l-.242.471-.026.529-.445.287-.287.445-.529.026L13 15l-.471-.242-.529-.026-.287-.445-.445-.287-.026-.529L11 13l.242-.471.026-.529.445-.287.287-.445.529-.026L13 11z" />
+                                </svg>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-lg p-0"
+                                aria-labelledby="page-header-themes-dropdown">
+                                <div class="p-3 bg-body-light rounded-top">
+                                    <h5 class="h6 text-center mb-0">
+                                        Color Themes
+                                    </h5>
+                                </div>
+                                <div class="p-3">
+                                    <div class="row g-0 text-center">
+                                        <div class="col-2">
+                                            <a class="text-default"
+                                                data-toggle="theme"
+                                                data-theme="default"
+                                                href="javascript:void(0)">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="32" height="32"
+                                                    fill="currentColor"
+                                                    class="bi bi-circle-fill"
+                                                    viewBox="0 0 16 16">
+                                                    <circle cx="8" cy="8"
+                                                        r="8" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <div class="col-2">
+                                            <a class="text-elegance"
+                                                data-toggle="theme"
+                                                data-theme="{% static 'admin/css/elegance.min-5.8.css' %}"
+                                                href="javascript:void(0)">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="32" height="32"
+                                                    fill="currentColor"
+                                                    class="bi bi-circle-fill"
+                                                    viewBox="0 0 16 16">
+                                                    <circle cx="8" cy="8"
+                                                        r="8" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <div class="col-2">
+                                            <a class="text-pulse"
+                                                data-toggle="theme"
+                                                data-theme="{% static 'admin/css/pulse.min-5.8.css' %}"
+                                                href="javascript:void(0)">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="32" height="32"
+                                                    fill="currentColor"
+                                                    class="bi bi-circle-fill"
+                                                    viewBox="0 0 16 16">
+                                                    <circle cx="8" cy="8" r="8" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <div class="col-2">
+                                            <a class="text-flat"
+                                                data-toggle="theme"
+                                                data-theme="{% static 'admin/css/flat.min-5.8.css' %}"
+                                                href="javascript:void(0)">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="32" height="32"
+                                                    fill="currentColor"
+                                                    class="bi bi-circle-fill"
+                                                    viewBox="0 0 16 16">
+                                                    <circle cx="8" cy="8"
+                                                        r="8" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <div class="col-2">
+                                            <a class="text-corporate"
+                                                data-toggle="theme"
+                                                data-theme="{% static 'admin/css/corporate.min-5.8.css' %}"
+                                                href="javascript:void(0)">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="32" height="32"
+                                                    fill="currentColor"
+                                                    class="bi bi-circle-fill"
+                                                    viewBox="0 0 16 16">
+                                                    <circle cx="8" cy="8"
+                                                        r="8" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <div class="col-2">
+                                            <a class="text-earth"
+                                                data-toggle="theme"
+                                                data-theme="{% static 'admin/css/elegance.min-5.8.css' %}"
+                                                href="javascript:void(0)">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="32" height="32"
+                                                    fill="currentColor"
+                                                    class="bi bi-circle-fill"
+                                                    viewBox="0 0 16 16">
+                                                    <circle cx="8" cy="8"
+                                                        r="8" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-x-1">
+                        <button type="button"
+                            class="btn btn-sm btn-alt-secondary"
+                            data-toggle="layout"
+                            data-action="side_overlay_toggle">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 512 512" width="24" height="24"
+                                fill="currentColor">
+                                <path
+                                    d="M16 132h480c8.8 0 16-7.2 16-16s-7.2-16-16-16H16c-8.8 0-16 7.2-16 16s7.2 16 16 16zm0 128h480c8.8 0 16-7.2 16-16s-7.2-16-16-16H16c-8.8 0-16 7.2-16 16s7.2 16 16 16zm0 128h480c8.8 0 16-7.2 16-16s-7.2-16-16-16H16c-8.8 0-16 7.2-16 16s7.2 16 16 16z" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <!--
+                <div id="page-header-search"
+                    class="overlay-header bg-body-extra-light">
+                    <div class="content-header">
+                        <form class="w-100" action method="POST">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <button type="button" class="btn btn-secondary"
+                                    data-toggle="layout"
+                                    data-action="header_search_off">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        width="16" height="16"
+                                        fill="currentColor" class="bi bi-x-lg"
+                                        viewBox="0 0 16 16">
+                                        <path
+                                            d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                                    </svg>
+                                </button>
+                                <input type="text" class="form-control"
+                                    placeholder="Search or hit ESC.."
+                                    id="page-header-search-input"
+                                    name="page-header-search-input">
+                                <button type="submit" class="btn btn-secondary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                -->
+                <div id="page-header-loader" class="overlay-header bg-primary">
+                    <div class="content-header">
+                        <div class="w-100 text-center">
+                            <i class="far fa-sun fa-spin text-white"></i>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <main id="main-container">
+                <div class="bg-image bg-image-bottom"
+                    style="background-image: url('{% static 'admin/img/photo34@2x.jpg' %}');">
+                    <div class="bg-primary-dark-op">
+                        <div
+                            class="content content-top text-center overflow-hidden">
+                            <div class="pt-5 pb-3">
+                                <h1 class="fw-bold text-white mb-2">
+                                    Dashboard
+                                </h1>
+                                <h2 class="h4 fw-medium text-white-75">
+                                    Welcome to your custom panel
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% block contenido %}
+                {% endblock %}
+            </main>
+            <footer id="page-footer">
+                <div class="content py-3">
+                    <div class="row fs-sm">
+                        <div
+                            class="col-sm-6 order-sm-1 py-1 text-center text-sm-start">
+                            <a class="fw-semibold"
+                                target="_blank">DIBAX_TAX_LLC</a>
+                            &copy;
+                            <span data-toggle="year-copy"></span>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        <div class="modal fade" id="modal-inhabilitar-servicio" tabindex="-1"
+            aria-labelledby="modal-slideup" style="display: none;"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-slideup" role="document">
+                <div class="modal-content">
+                    <div class="block block-rounded shadow-none mb-0">
+                        <div class="block-header block-header-default">
+                            <h3 class="block-title fw-black fs-4">Inhabilitar
+                                Servicio</h3>
+                            <div class="block-options">
+                                <button type="button" class="btn-block-option"
+                                    data-bs-dismiss="modal" aria-label="Close">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        width="24" height="24"
+                                        fill="currentColor"
+                                        class="bi bi-x-lg fa fa-times"
+                                        viewBox="0 0 16 16">
+                                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="block-content fs-sm py-4">
+                            {% if disponibles == 0 %}
+                            <h4 class="h5 fw-extrabold mb-1 text-center">
+                                No hay servicios disponibles
+                            </h4>
+                            {% else %}
+                            <form
+                                action="../../../../../../../../../../../../../../dibaz_admin/estado_servicio/"
+                                method="POST">
+                                {% csrf_token %}
+                                <div class="input-group">
+                                    <span class="input-group-text"
+                                        id="basic-addon1">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24"
+                                            fill="currentColor"
+                                            class="bi bi-file-earmark-x"
+                                            viewBox="0 0 16 16">
+                                            <path
+                                                d="M6.854 7.146a.5.5 0 1 0-.708.708L7.293 9l-1.147 1.146a.5.5 0 0 0 .708.708L8 9.707l1.146 1.147a.5.5 0 0 0 .708-.708L8.707 9l1.147-1.146a.5.5 0 0 0-.708-.708L8 8.293z" />
+                                            <path
+                                                d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
+                                        </svg>
+                                    </span>
+                                    <select required class="form-select"
+                                        id="example-select" name="servicio">
+                                        <option selected value>Seleccione un
+                                            servicio
+                                        </option>
+                                        {% if not servicios.inmigracion or servicios.inmigracion.habilitado %}
+                                            <option value="inmigracion">
+                                                Trámites Migratorios
+                                            </option>
+                                        {% endif %}
+                                        {% if not servicios.impuestos or servicios.impuestos.habilitado %}
+                                            <option value="impuestos">
+                                                Servicios de Impuestos y Emprendimientos
+                                            </option>
+                                        {% endif %}
+                                        {% if not servicios.consultoria or servicios.consultoria.habilitado %}
+                                            <option value="consultoria">
+                                                Trámites Consulares Cubanos
+                                            </option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                                <div
+                                    class="block-content block-content-full block-content-sm text-end border-top">
+                                    <button type="button"
+                                        class="btn btn-alt-secondary"
+                                        data-bs-dismiss="modal">
+                                        Cerrar
+                                    </button>
+                                    <button type="submit" class="btn btn-alt-primary">
+                                        Inhabilitar
+                                    </button>
+                                </div>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modal-habilitar-servicio" tabindex="-1"
+            aria-labelledby="modal-slideup" style="display: none;"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-slideup" role="document">
+                <div class="modal-content">
+                    <div class="block block-rounded shadow-none mb-0">
+                        <div class="block-header block-header-default">
+                            <h3 class="block-title fw-black fs-4">Habilitar
+                                Servicio</h3>
+                            <div class="block-options">
+                                <button type="button" class="btn-block-option"
+                                    data-bs-dismiss="modal" aria-label="Close">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        width="24" height="24"
+                                        fill="currentColor"
+                                        class="bi bi-x-lg fa fa-times"
+                                        viewBox="0 0 16 16">
+                                        <path
+                                            d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="block-content fs-sm py-4">
+                            {% if disponibles == 4 %}
+                            <h4 class="h5 fw-extrabold mb-1 text-center">
+                                Todos los servicios estan disponibles
+                            </h4>
+                            {% else %}
+                            <form
+                                action="../../../../../../../../../../../../../../dibaz_admin/estado_servicio/"
+                                method="POST">
+                                {% csrf_token %}
+                                <div class="input-group">
+                                    <span class="input-group-text"
+                                        id="basic-addon1">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24"
+                                            fill="currentColor"
+                                            class="bi bi-file-earmark-check"
+                                            viewBox="0 0 16 16">
+                                            <path
+                                                d="M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z" />
+                                            <path
+                                                d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z" />
+                                        </svg>
+                                    </span>
+                                    <select required class="form-select" id="example-select" name="servicio">
+                                        <option selected value>Seleccione un servicio</option>
+                                        {% if servicios.inmigracion.habilitado == False %}
+                                            <option value="inmigracion">
+                                                Trámites Migratorios
+                                            </option>
+                                        {% endif %}
+                                        {% if servicios.impuestos.habilitado == False %}
+                                            <option value="impuestos">
+                                                Servicios de Impuestos y Emprendimientos
+                                            </option>
+                                        {% endif %}
+                                        {% if servicios.consultoria.habilitado == False %}
+                                            <option value="consultoria">
+                                                Trámites Consulares Cubanos
+                                            </option>
+                                        {% endif %}
+                                    </select>
+                                </div>
+                                <div
+                                    class="block-content block-content-full block-content-sm text-end border-top">
+                                    <button type="button"
+                                        class="btn btn-alt-secondary"
+                                        data-bs-dismiss="modal">
+                                        Cerrar
+                                    </button>
+                                    <button type="submit" class="btn btn-alt-primary">
+                                        Habilitar
+                                    </button>
+                                </div>
+                            </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modal-slideup" tabindex="-1"
+            aria-labelledby="modal-slideup" style="display: none;"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-slideup" role="document">
+                <div class="modal-content">
+                    <div class="block block-rounded shadow-none mb-0">
+                        <div class="block-header block-header-default">
+                            <h3 class="block-title fw-black fs-4">Modificar
+                                Dirección</h3>
+                            <div class="block-options">
+                                <button type="button" class="btn-block-option"
+                                    data-bs-dismiss="modal" aria-label="Close">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        width="24" height="24"
+                                        fill="currentColor"
+                                        class="bi bi-x-lg fa fa-times"
+                                        viewBox="0 0 16 16">
+                                        <path
+                                            d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="block-content fs-sm">
+                            <form
+                                action="../../../../../../../../../../../../../../dibaz_admin/set_meta/direccion/"
+                                method="POST">
+                                {% csrf_token %}
+                                <div class="input-group">
+                                    <span class="input-group-text"
+                                        id="basic-addon1">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24"
+                                            fill="currentColor"
+                                            class="bi bi-geo-alt"
+                                            viewBox="0 0 16 16">
+                                            <path
+                                                d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"></path>
+                                            <path
+                                                d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"></path>
+                                        </svg>
+                                    </span>
+                                    <input required type="text"
+                                        class="form-control"
+                                        placeholder="Dirección"
+                                        aria-label="Input group example"
+                                        aria-describedby="basic-addon1"
+                                        value="{{meta.direccion}}"
+                                        name="descripcion">
+                                </div>
+                                <div
+                                    class="block-content block-content-full block-content-sm text-end border-top">
+                                    {% if meta.direccion %}
+                                    <a
+                                        href="../../../../../../../../../../../../../../dibaz_admin/remove_meta/direccion/"
+                                        type="button"
+                                        class="btn btn-alt-secondary">
+                                        Quitar
+                                    </a>
+                                    {% endif %}
+                                    <button type="button"
+                                        class="btn btn-alt-secondary"
+                                        data-bs-dismiss="modal">
+                                        Cerrar
+                                    </button>
+                                    <button type="submit" class="btn btn-alt-primary">
+                                        Guardar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modal-setmeta_telefono" tabindex="-1"
+            aria-labelledby="modal-slideup" style="display: none;"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-slideup" role="document">
+                <div class="modal-content">
+                    <div class="block block-rounded shadow-none mb-0">
+                        <div class="block-header block-header-default">
+                            <h3 class="block-title fw-black fs-4">Modificar
+                                Telefono</h3>
+                            <div class="block-options">
+                                <button type="button" class="btn-block-option"
+                                    data-bs-dismiss="modal" aria-label="Close">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        width="24" height="24"
+                                        fill="currentColor"
+                                        class="bi bi-x-lg fa fa-times"
+                                        viewBox="0 0 16 16">
+                                        <path
+                                            d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="block-content fs-sm">
+                            <form
+                                action="../../../../../../../../../../../../../../dibaz_admin/set_meta/telefono/"
+                                method="POST">
+                                {% csrf_token %}
+                                <div class="input-group">
+                                    <span class="input-group-text"
+                                        id="basic-addon1">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24"
+                                            fill="currentColor"
+                                            class="bi bi-phone"
+                                            viewBox="0 0 16 16">
+                                            <path
+                                                d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                                            <path
+                                                d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2" />
+                                        </svg>
+                                    </span>
+                                    <input required type="text"
+                                        class="form-control"
+                                        placeholder="Teléfono"
+                                        aria-label="Input group example"
+                                        aria-describedby="basic-addon1"
+                                        value="{{meta.telefono}}"
+                                        name="descripcion">
+                                </div>
+                                <div
+                                    class="block-content block-content-full block-content-sm text-end border-top">
+                                    {% if meta.telefono %}
+                                    <a
+                                        href="../../../../../../../../../../../../../../dibaz_admin/remove_meta/telefono/"
+                                        type="button"
+                                        class="btn btn-alt-secondary">
+                                        Quitar
+                                    </a>
+                                    {% endif %}
+                                    <button type="button"
+                                        class="btn btn-alt-secondary"
+                                        data-bs-dismiss="modal">
+                                        Cerrar
+                                    </button>
+                                    <button type="submit" class="btn btn-alt-primary">
+                                        Guardar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modal-setmeta_email" tabindex="-1"
+            aria-labelledby="modal-slideup" style="display: none;"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-slideup" role="document">
+                <div class="modal-content">
+                    <div class="block block-rounded shadow-none mb-0">
+                        <div class="block-header block-header-default">
+                            <h3 class="block-title fw-black fs-4">Modificar Email</h3>
+                            <div class="block-options">
+                                <button type="button" class="btn-block-option"
+                                    data-bs-dismiss="modal" aria-label="Close">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        width="24" height="24"
+                                        fill="currentColor"
+                                        class="bi bi-x-lg fa fa-times"
+                                        viewBox="0 0 16 16">
+                                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="block-content fs-sm">
+                            <form
+                                action="../../../../../../../../../../../../../../dibaz_admin/set_meta/email/"
+                                method="POST">
+                                {% csrf_token %}
+                                <div class="input-group">
+                                    <span class="input-group-text"
+                                        id="basic-addon1">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24"
+                                            fill="currentColor"
+                                            class="bi bi-envelope-at"
+                                            viewBox="0 0 16 16">
+                                            <path
+                                                d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2zm3.708 6.208L1 11.105V5.383zM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2z" />
+                                            <path
+                                                d="M14.247 14.269c1.01 0 1.587-.857 1.587-2.025v-.21C15.834 10.43 14.64 9 12.52 9h-.035C10.42 9 9 10.36 9 12.432v.214C9 14.82 10.438 16 12.358 16h.044c.594 0 1.018-.074 1.237-.175v-.73c-.245.11-.673.18-1.18.18h-.044c-1.334 0-2.571-.788-2.571-2.655v-.157c0-1.657 1.058-2.724 2.64-2.724h.04c1.535 0 2.484 1.05 2.484 2.326v.118c0 .975-.324 1.39-.639 1.39-.232 0-.41-.148-.41-.42v-2.19h-.906v.569h-.03c-.084-.298-.368-.63-.954-.63-.778 0-1.259.555-1.259 1.4v.528c0 .892.49 1.434 1.26 1.434.471 0 .896-.227 1.014-.643h.043c.118.42.617.648 1.12.648m-2.453-1.588v-.227c0-.546.227-.791.573-.791.297 0 .572.192.572.708v.367c0 .573-.253.744-.564.744-.354 0-.581-.215-.581-.8Z" />
+                                        </svg>
+                                    </span>
+                                    <input required type="text"
+                                        class="form-control" placeholder="Email"
+                                        aria-label="Input group example"
+                                        aria-describedby="basic-addon1"
+                                        value="{{meta.email}}"
+                                        name="descripcion">
+                                </div>
+                                <div
+                                    class="block-content block-content-full block-content-sm text-end border-top">
+                                    {% if meta.email %}
+                                    <a
+                                        href="../../../../../../../../../../../../../../dibaz_admin/remove_meta/email/"
+                                        type="button"
+                                        class="btn btn-alt-secondary">
+                                        Quitar
+                                    </a>
+                                    {% endif %}
+                                    <button type="button"
+                                        class="btn btn-alt-secondary"
+                                        data-bs-dismiss="modal">
+                                        Cerrar
+                                    </button>
+                                    <button type="submit" class="btn btn-alt-primary">
+                                        Guardar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modal-cantidad_maxima_citas" tabindex="-1"
+            aria-labelledby="modal-slideup" style="display: none;"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-slideup" role="document">
+                <div class="modal-content">
+                    <div class="block block-rounded shadow-none mb-0">
+                        <div class="block-header block-header-default">
+                            <h3 class="block-title fw-black fs-4">Modificar Cantidad Máxima de Citas</h3>
+                            <div class="block-options">
+                                <button type="button" class="btn-block-option"
+                                    data-bs-dismiss="modal" aria-label="Close">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        width="24" height="24"
+                                        fill="currentColor"
+                                        class="bi bi-x-lg fa fa-times"
+                                        viewBox="0 0 16 16">
+                                        <path
+                                            d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="block-content fs-sm">
+                            <form
+                                action="../../../../../../../../../../../../../../dibaz_admin/set_meta/max_citas/"
+                                method="POST">
+                                {% csrf_token %}
+                                <div class="input-group">
+                                    <span class="input-group-text"
+                                        id="basic-addon1">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24"
+                                            fill="currentColor"
+                                            class="bi bi-123"
+                                            viewBox="0 0 16 16">
+                                            <path
+                                                d="M2.873 11.297V4.142H1.699L0 5.379v1.137l1.64-1.18h.06v5.961zm3.213-5.09v-.063c0-.618.44-1.169 1.196-1.169.676 0 1.174.44 1.174 1.106 0 .624-.42 1.101-.807 1.526L4.99 10.553v.744h4.78v-.99H6.643v-.069L8.41 8.252c.65-.724 1.237-1.332 1.237-2.27C9.646 4.849 8.723 4 7.308 4c-1.573 0-2.36 1.064-2.36 2.15v.057zm6.559 1.883h.786c.823 0 1.374.481 1.379 1.179.01.707-.55 1.216-1.421 1.21-.77-.005-1.326-.419-1.379-.953h-1.095c.042 1.053.938 1.918 2.464 1.918 1.478 0 2.642-.839 2.62-2.144-.02-1.143-.922-1.651-1.551-1.714v-.063c.535-.09 1.347-.66 1.326-1.678-.026-1.053-.933-1.855-2.359-1.845-1.5.005-2.317.88-2.348 1.898h1.116c.032-.498.498-.944 1.206-.944.703 0 1.206.435 1.206 1.07.005.64-.504 1.106-1.2 1.106h-.75z" />
+                                        </svg>
+                                    </span>
+                                    <input required type="number"
+                                        class="form-control"
+                                        placeholder="Maxima Cantidad de Citas Diarias"
+                                        aria-label="Input group example"
+                                        aria-describedby="basic-addon1"
+                                        value="{{meta.max_citas}}"
+                                        name="descripcion">
+                                </div>
+                                <div
+                                    class="block-content block-content-full block-content-sm text-end border-top">
+                                    <button type="button"
+                                        class="btn btn-alt-secondary"
+                                        data-bs-dismiss="modal">
+                                        Cerrar
+                                    </button>
+                                    <button type="submit" class="btn btn-alt-primary">
+                                        Guardar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="calendario" tabindex="-1"
+            aria-labelledby="modal-slideup" style="display: none;"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-slideup" role="document">
+                <div class="modal-content">
+                    <div class="block block-rounded shadow-none mb-0">
+                        <div class="block-header block-header-default">
+                            <h3
+                                class="block-title fw-black fs-4">Calendario</h3>
+                            <div class="block-options">
+                                <button type="button" class="btn-block-option"
+                                    data-bs-dismiss="modal" aria-label="Close">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        width="24" height="24"
+                                        fill="currentColor"
+                                        class="bi bi-x-lg fa fa-times"
+                                        viewBox="0 0 16 16">
+                                        <path
+                                            d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="block-content fs-sm">
+                            <div class="input-group">
+                                <span class="input-group-text"
+                                    id="basic-addon1">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        width="24" height="24"
+                                        fill="currentColor"
+                                        class="bi bi-calendar4-week nav-main-link-icon"
+                                        viewBox="0 0 16 16">
+                                        <path
+                                            d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
+                                        <path
+                                            d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z" />
+                                    </svg>
+                                </span>
+                                <input type="text" class="form-control"
+                                    id="datepicker" placeholder="Calendario">
+                            </div>
+                        </div>
+                        <div
+                            class="block-content block-content-full block-content-sm text-end border-top mt-4">
+                            <button type="button" class="btn btn-alt-secondary"
+                                data-bs-dismiss="modal">
+                                Cerrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="bloquear_fechas" tabindex="-1"
+            aria-labelledby="modal-slideup" style="display: none;"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-slideup" role="document">
+                <div class="modal-content">
+                    <div class="block block-rounded shadow-none mb-0">
+                        <div class="block-header block-header-default">
+                            <h3 class="block-title fw-black fs-4">Habilitar
+                                Fecha</h3>
+                            <div class="block-options">
+                                <button type="button" class="btn-block-option"
+                                    data-bs-dismiss="modal" aria-label="Close">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        width="24" height="24"
+                                        fill="currentColor"
+                                        class="bi bi-x-lg fa fa-times"
+                                        viewBox="0 0 16 16">
+                                        <path
+                                            d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="block-content fs-sm">
+                            <form
+                                action="../../../../../../../../../../../../../../dibaz_admin/bloquear_fechas/"
+                                method="POST">
+                                {% csrf_token %}
+                                <label class="fw-black fs-5 d-inline">Desde: <p
+                                        class='text-danger d-inline'>***</p></label>
+                                <div class="input-group">
+                                    <span class="input-group-text"
+                                        id="basic-addon1">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24"
+                                            fill="currentColor"
+                                            class="bi bi-calendar4-week nav-main-link-icon"
+                                            viewBox="0 0 16 16">
+                                            <path
+                                                d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
+                                            <path
+                                                d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z" />
+                                        </svg>
+                                    </span>
+                                    <input required type="date"
+                                        class="form-control" name="desde">
+                                </div>
+
+                                <label class="fw-black fs-5 mt-2">Hasta:
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text"
+                                        id="basic-addon1">
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            width="24" height="24"
+                                            fill="currentColor"
+                                            class="bi bi-calendar4-week nav-main-link-icon"
+                                            viewBox="0 0 16 16">
+                                            <path
+                                                d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
+                                            <path
+                                                d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z" />
+                                        </svg>
+                                    </span>
+                                    <input type="date" class="form-control"
+                                        name="hasta">
+                                </div>
+                                <div
+                                    class="block-content block-content-full block-content-sm text-end border-top mt-4">
+                                    <button type="button"
+                                        class="btn btn-alt-secondary"
+                                        data-bs-dismiss="modal">
+                                        Cerrar
+                                    </button>
+                                    <button type="submit" class="btn btn-alt-primary">
+                                        Bloquear
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="habilitar_fechas" tabindex="-1"
+            aria-labelledby="modal-slideup" style="display: none;"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-slideup" role="document">
+                <div class="modal-content">
+                    <div class="block block-rounded shadow-none mb-0">
+                        <div class="block-header block-header-default">
+                            <h3 class="block-title fw-black fs-4">Habilitar
+                                Fecha</h3>
+                            <div class="block-options">
+                                <button type="button" class="btn-block-option"
+                                    data-bs-dismiss="modal" aria-label="Close">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        width="24" height="24"
+                                        fill="currentColor"
+                                        class="bi bi-x-lg fa fa-times"
+                                        viewBox="0 0 16 16">
+                                        <path
+                                            d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="block-content fs-sm">
+                            <form
+                                action="../../../../../../../../../../../../../../dibaz_admin/habilitar_fechas/"
+                                method="POST">
+                                {% csrf_token %}
+                                <label class="fw-black fs-5 d-inline">Desde: <p class='text-danger d-inline'>***</p></label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-calendar4-week nav-main-link-icon" viewBox="0 0 16 16">
+                                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
+                                            <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z" />
+                                        </svg>
+                                    </span>
+                                    <input required type="date" class="form-control" name="desde">
+                                </div>
+
+                                <label class="fw-black fs-5 mt-2">Hasta:
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-calendar4-week nav-main-link-icon" viewBox="0 0 16 16">
+                                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
+                                            <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z" />
+                                        </svg>
+                                    </span>
+                                    <input type="date" class="form-control" name="hasta">
+                                </div>
+                                <div class="block-content block-content-full block-content-sm text-end border-top mt-4">
+                                    <button type="button" class="btn btn-alt-secondary" data-bs-dismiss="modal">
+                                        Cerrar
+                                    </button>
+                                    <button type="submit" class="btn btn-alt-primary">
+                                        Habilitar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="antiphishing" tabindex="-1"
+            aria-labelledby="modal-slideup" style="display: none;"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-slideup" role="document">
+                <div class="modal-content">
+                    <div class="block block-rounded shadow-none mb-0">
+                        <div class="block-header block-header-default">
+                            <h3 class="block-title fw-black fs-4">Configura su código antiphishing</h3>
+                            <div class="block-options">
+                                <button type="button" class="btn-block-option" data-bs-dismiss="modal" aria-label="Close">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x-lg fa fa-times" viewBox="0 0 16 16">
+                                        <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="block-content fs-sm">
+                            <form action="../../../../../../../../../../../../../../dibaz_admin/set_antiphishing/" method="POST">
+                                {% csrf_token %}
+                                <label class="fw-semibold mt-3 fs-5">Inserte su código antiphishing</label>
+                                <textarea name="antiphishing" cols="40" rows="6" class="form-control" placeholder="Ingrese su código antiphishing aquí. Este código es una medida de seguridad adicional para proteger su cuenta contra intentos de fraude."
+                                required="" id="id_message">{% if request.user.antiphishing != None %}{{request.user.antiphishing}}{% endif %}</textarea>
+                                
+                                <div class="block-content block-content-full block-content-sm text-end border-top mt-4 d-flex justify-content-between">
+                                    <button type="button" class="btn btn-secondary"
+                                        class="btn btn-alt-secondary"
+                                        data-bs-dismiss="modal">
+                                        Cancelar
+                                    </button>
+                                    {% if request.user.antiphishing %}
+                                        <a type="button" class="btn btn-danger" href="../../../../../../../../../../../../../../dibaz_admin/delete_antiphishing/">
+                                            Quitar
+                                        </a>
+                                    {% endif %}
+                                        
+                                    <button type="submit" class="btn btn-success">
+                                        Aceptar
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="modal" id="modal_nueva_cita" tabindex="-1" aria-labelledby="modal-tabs" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="block block-rounded shadow-none mb-0 overflow-hidden">
+                        <ul class="nav nav-tabs nav-tabs-block w-100" role="tablist">
+                            <div class="container-fluid w-100">
+                                <div class="row w-100">
+                                    <li class="nav-item col-12 col-md-6" role="presentation">
+                                        <button type="button" class="nav-link active" id="btabs-alt-static-home-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#service_inmigracion" role="tab" aria-controls="btabs-alt-static-home" aria-selected="true">
+                                            Trámites Migratorios
+                                        </button>
+                                    </li>
+                                    <li class="nav-item col-12 col-md-6" role="presentation">
+                                        <button type="button" class="nav-link text-center" id="btabs-alt-static-profile-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#service_impuestos" role="tab" aria-controls="btabs-alt-static-profile" aria-selected="false" tabindex="-1">
+                                            Servicios de Impuestos y emprendimientos
+                                        </button>
+                                    </li>
+                                    <li class="nav-item col-12 col-md-6" role="presentation">
+                                        <button type="button" class="nav-link text-center" id="btabs-alt-static-profile-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#service_consultoria" role="tab" aria-controls="btabs-alt-static-profile" aria-selected="false" tabindex="-1">
+                                            Trámites consulares Cubanos
+                                        </button>
+                                    </li>
+                                </div>
+                            </div>
+                        </ul>
+                        <div class="block-content tab-content">
+                            <div class="tab-pane active show" id="service_inmigracion" role="tabpanel" aria-labelledby="btabs-alt-static-home-tab" tabindex="0">
+                                <h5 class="fw-semibold">TRÁMITES MIGRATORIOS</h5>
+                                <form action="../../../../../../../../../../../../../../dibaz_admin/nueva_cita/inmigracion/" method="POST">
+                                    {% csrf_token %}
+                                    <label class="fw-semibold">Nombre</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"
+                                            id="basic-addon1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                                            </svg>
+                                        </span>
+                                        <input required name="nombre" type="text" class="form-control" placeholder="Inserte el nombre del cliente">
+                                    </div>
+
+                                    <label class="fw-semibold mt-3">Teléfono</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"
+                                            id="basic-addon1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-phone" viewBox="0 0 16 16">
+                                                <path d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                                            </svg>
+                                        </span>
+                                        <input required name="telefono" type="text" class="form-control" placeholder="Inserte el teléfono del cliente">
+                                    </div>
+
+                                    <label class="fw-semibold mt-3">Selecione una descripción</label>
+                                    <select required class="form-select" id="example-select" name="descripcion">
+                                        <option value="">
+                                            Seleccione una descripción
+                                        </option>
+                                        <option value="Residencia">
+                                            Residencia
+                                        </option>
+                                        <option value="Peticiones Familiares">
+                                            Peticiones Familiares
+                                        </option>
+                                        <option value="Naturalización">
+                                            Naturalización
+                                        </option>
+                                        <option value="Cambios de Dirección">
+                                            Cambios de Dirección
+                                        </option>
+                                        <option value="Visa Fiancé">
+                                            Visa Fiancé
+                                        </option>
+                                        <option value="Autorizo de Viaje">
+                                            Autorizo de Viaje
+                                        </option>
+                                        <option value="Parole Humanitario">
+                                            Parole Humanitario
+                                        </option>
+                                        <option value="Solicitud de Asilo">
+                                            Solicitud de Asilo
+                                        </option>
+                                        <option value="Extensión de Estadia de No Migrante">
+                                            Extensión de Estadia de No Migrante
+                                        </option>
+                                        <option value="Fee Waiver">
+                                            Fee Waiver
+                                        </option>
+                                        <option value="Petición FOIA">
+                                            Petición FOIA
+                                        </option>
+                                        <option value="Lotería de Visas">
+                                            Lotería de Visas
+                                        </option>
+                                        <option value="Visas de Turismo B1/B2">
+                                            Visas de Turismo B1/B2
+                                        </option>
+                                        <option value="Mociones en Corte">
+                                            Mociones en Corte
+                                        </option>
+                                        <option value="Prosecutorial Discretion">
+                                            Prosecutorial Discretion
+                                        </option>
+                                        <option value="Retiro de Asilo">
+                                            Retiro de Asilo
+                                        </option>
+                                        <option value="Reapertura de Casos USCIS">
+                                            Reapertura de Casos USCIS
+                                        </option>
+                                        <option value="Perdones Migratorios">
+                                            Perdones Migratorios
+                                        </option>
+                                        <option value="Estatus de Protección Temporal (TPS)">
+                                            Estatus de Protección Temporal (TPS)
+                                        </option>
+                                        <option value="Otra">
+                                            Otra
+                                        </option>
+                                    </select>
+
+                                    <label class="fw-semibold mt-3">Selecione una fecha</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"
+                                            id="basic-addon1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-calendar4-week nav-main-link-icon" viewBox="0 0 16 16">
+                                                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
+                                                <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z" />
+                                            </svg>
+                                        </span>
+                                        <input required name="fecha" type="text" class="form-control" id="datepicker_inmigracion" placeholder="Seleccione una fecha">
+                                    </div>
+                                    
+                                    <label class="fw-semibold mt-3">Detalles</label>
+                                    <textarea name="detalles" cols="40" rows="6" class="form-control" placeholder="Inserte los detalles de la cita" required id="id_message"></textarea>
+
+                                    <div class="block-content block-content-full block-content-sm text-end border-top mt-3">
+                                        <button type="button" class="btn btn-alt-secondary"
+                                            data-bs-dismiss="modal">
+                                            Cerrar
+                                        </button>
+                                        <button type="submit" class="btn btn-alt-primary">
+                                            Guardar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane" id="service_impuestos" role="tabpanel" aria-labelledby="btabs-alt-static-profile-tab" tabindex="0">
+                                <h5 class="fw-semibold">SERVICIO DE IMPUESTOS Y EMPRENDIMIENTOS</h5>
+                                <form action="../../../../../../../../../../../../../../dibaz_admin/nueva_cita/impuestos/" method="POST">
+                                    {% csrf_token %}
+                                    <label class="fw-semibold">Nombre</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"
+                                            id="basic-addon1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                                            </svg>
+                                        </span>
+                                        <input required name="nombre" type="text" class="form-control" placeholder="Inserte el nombre del cliente">
+                                    </div>
+
+                                    <label class="fw-semibold mt-3">Teléfono</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"
+                                            id="basic-addon1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-phone" viewBox="0 0 16 16">
+                                                <path d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                                            </svg>
+                                        </span>
+                                        <input required name="telefono" type="text" class="form-control" placeholder="Inserte el teléfono del cliente">
+                                    </div>
+                                    
+                                    <label class="fw-semibold mt-3">Selecione una descripción</label>
+                                    <select required class="form-select" id="example-select" name="descripcion">
+                                        <option selected value="">Seleccione una descripción</option>
+                                        <option value="ITIN con Certificado Forense">
+                                            ITIN con Certificado Forense
+                                        </option>
+                                        <option value="Texas Notary Public">
+                                            Texas Notary Public
+                                        </option>
+                                        <option value="Declaración de Impuestos">
+                                            Declaración de Impuestos
+                                        </option>
+                                        <option value="Formación de Compañías">
+                                            Formación de Compañías
+                                        </option>
+                                        <option value="Obtención de EIN">
+                                            Obtención de EIN
+                                        </option>
+                                        <option value="Traducción de Documentos">
+                                            Traducción de Documentos
+                                        </option>
+                                        <option value="Ministro de Bodas">
+                                            Ministro de Bodas
+                                        </option>
+                                        <option value="Otra">
+                                            Otra
+                                        </option>
+                                    </select>
+
+                                    <label class="fw-semibold mt-3">Selecione una fecha</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"
+                                            id="basic-addon1">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                width="24" height="24"
+                                                fill="currentColor"
+                                                class="bi bi-calendar4-week nav-main-link-icon"
+                                                viewBox="0 0 16 16">
+                                                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
+                                                <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z" />
+                                            </svg>
+                                        </span>
+                                        <input type="text" name="fecha" class="form-control" id="datepicker_impuestos" placeholder="Seleccione una fecha">
+                                    </div>
+                                    
+                                    <label class="fw-semibold mt-3">Detalles</label>
+                                    <textarea name="detalles" cols="40" rows="6" class="form-control" placeholder="Inserte los detalles de la cita" required="" id="id_message"></textarea>
+
+                                    <div class="block-content block-content-full block-content-sm text-end border-top mt-3">
+                                        <button type="button" class="btn btn-alt-secondary"
+                                            data-bs-dismiss="modal">
+                                            Cerrar
+                                        </button>
+                                        <button type="submit" class="btn btn-alt-primary">
+                                            Guardar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane" id="service_consultoria" role="tabpanel" aria-labelledby="btabs-alt-static-profile-tab" tabindex="0">
+                                <h5 class="fw-semibold">TRÁMITES CONSULARES CUBANOS</h5>
+                                <form action="../../../../../../../../../../../../../../dibaz_admin/nueva_cita/consultoria/" method="POST">
+                                    {% csrf_token %}
+                                    <label class="fw-semibold">Nombre</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"
+                                            id="basic-addon1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                                                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                                            </svg>
+                                        </span>
+                                        <input required name="nombre" type="text" class="form-control" placeholder="Inserte el nombre del cliente">
+                                    </div>
+
+                                    <label class="fw-semibold mt-3">Teléfono</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text"
+                                            id="basic-addon1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-phone" viewBox="0 0 16 16">
+                                                <path d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                                <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
+                                            </svg>
+                                        </span>
+                                        <input required name="telefono" type="text" class="form-control" placeholder="Inserte el teléfono del cliente">
+                                    </div>
+                                    
+                                    <label class="fw-semibold mt-3">Selecione una descripción</label>
+                                    <select required class="form-select" id="example-select" name="descripcion">
+                                        <option selected value="">Seleccione una descripción</option>
+                                        <option value="Pasaporte">
+                                            Pasaporte
+                                        </option>
+                                        <option value="Visa HE 11">
+                                            Visa HE 11
+                                        </option>
+                                        <option value="Autorizacion de Menores">
+                                            Autorizacion de Menores
+                                        </option>
+                                        <option value="Visa de Turismo B1/B2">
+                                            Visa de Turismo B1/B2
+                                        </option>
+                                        <option value="Poderes y Legalizaciones">
+                                            Poderes y Legalizaciones
+                                        </option>
+                                        <option value="Otra">
+                                            Otra
+                                        </option>
+                                    </select>
+
+                                    <label class="fw-semibold mt-3">Selecione una fecha</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-calendar4-week nav-main-link-icon" viewBox="0 0 16 16">
+                                                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M2 2a1 1 0 0 0-1 1v1h14V3a1 1 0 0 0-1-1zm13 3H1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
+                                                <path d="M11 7.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-2 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5zm-3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5z" />
+                                            </svg>
+                                        </span>
+                                        <input type="text" name="fecha" class="form-control" id="datepicker_consultoria" placeholder="Seleccione una fecha">
+                                    </div>
+                                    
+                                    <label class="fw-semibold mt-3">Detalles</label>
+                                    <textarea name="detalles" cols="40" rows="6" class="form-control" placeholder="Inserte los detalles de la cita" required="" id="id_message"></textarea>
+
+                                    <div class="block-content block-content-full block-content-sm text-end border-top mt-3">
+                                        <button type="button" class="btn btn-alt-secondary"
+                                            data-bs-dismiss="modal">
+                                            Cerrar
+                                        </button>
+                                        <button type="submit" class="btn btn-alt-primary">
+                                            Guardar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="{% static 'js/jquery.min.js'%}"></script>
+        <script src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
+        <script>
+            $(document).ready(function(){
+                var enabledDates = [
+                    {% for x in fechas_disponibles %}
+                        '{{x}}',
+                    {% endfor %}
+                ]; // Fechas habilitadas
+                function enableSpecificDates(date) {
+                    var formattedDate = $.fn.datepicker.DPGlobal.formatDate(date, 'yyyy-mm-dd', 'en');
+                    return enabledDates.includes(formattedDate);
+                }
+                $('#datepicker').datepicker({
+                    format: 'yyyy-mm-dd',
+                    beforeShowDay: function(date) {
+                        if (enableSpecificDates(date)) {
+                            return {enabled: true};
+                        } else {
+                            return {enabled: false, classes: 'disabled'};
+                        }
+                    }
+                });
+                $('#datepicker_inmigracion').datepicker({
+                    format: 'yyyy-mm-dd',
+                    beforeShowDay: function(date) {
+                        if (enableSpecificDates(date)) {
+                            return {enabled: true};
+                        } else {
+                            return {enabled: false, classes: 'disabled'};
+                        }
+                    }
+                });
+                $('#datepicker_impuestos').datepicker({
+                    format: 'yyyy-mm-dd',
+                    beforeShowDay: function(date) {
+                        if (enableSpecificDates(date)) {
+                            return {enabled: true};
+                        } else {
+                            return {enabled: false, classes: 'disabled'};
+                        }
+                    }
+                });
+                $('#datepicker_consultoria').datepicker({
+                    format: 'yyyy-mm-dd',
+                    beforeShowDay: function(date) {
+                        if (enableSpecificDates(date)) {
+                            return {enabled: true};
+                        } else {
+                            return {enabled: false, classes: 'disabled'};
+                        }
+                    }
+                });
+                $('#datepicker_mentoria').datepicker({
+                    format: 'yyyy-mm-dd',
+                    beforeShowDay: function(date) {
+                        if (enableSpecificDates(date)) {
+                            return {enabled: true};
+                        } else {
+                            return {enabled: false, classes: 'disabled'};
+                        }
+                    }
+                });
+                {% for cp in citas_pendientes %}
+                    $('#datepicker_inmigracion_edit_{{cp.id}}').datepicker({
+                        format: 'yyyy-mm-dd',
+                        beforeShowDay: function(date) {
+                            if (enableSpecificDates(date)) {
+                                return {enabled: true};
+                            } else {
+                                return {enabled: false, classes: 'disabled'};
+                            }
+                        }
+                    });
+                {% endfor %}
+                {% for cp in citas_aprobadas %}
+                    $('#datepicker_cita_edit_{{cp.id}}').datepicker({
+                        format: 'yyyy-mm-dd',
+                        beforeShowDay: function(date) {
+                            if (enableSpecificDates(date)) {
+                                return {enabled: true};
+                            } else {
+                                return {enabled: false, classes: 'disabled'};
+                            }
+                        }
+                    });
+                {% endfor %}
+            });
+        </script>
+        {% if Alerta %}
+        <style>
+                .error-popup {
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    z-index: 1050;
+                    display: none;
+                    max-width: 300px;
+                }
+            </style>
+        <div class="alert alert-danger alert-dismissible fade show error-popup"
+            role="alert" id="errorPopup">
+            <strong class="d-block">Error! </strong>
+            {{Alerta}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                aria-label="Close"></button>
+        </div>
+        <script>
+                var errorPopup = document.getElementById('errorPopup');
+                errorPopup.style.display = 'block';
+    
+                setTimeout(function() {
+                    var alert = new bootstrap.Alert(errorPopup);
+                    alert.close();
+                }, 10000);
+            </script>
+        {% endif %}
+
+        <script src="{% static 'admin/js/codebase.app.min-5.8.js' %}"></script>
+        <script src="{% static 'admin/js/chart.umd.js' %}"></script>
+        <script>
+            !function(){"use strict";class t{static initDashboardChartJS(){Chart.defaults.color="#818d96",Chart.defaults.scale.grid.color="transparent",Chart.defaults.scale.grid.zeroLineColor="transparent",Chart.defaults.scale.display=!1,Chart.defaults.scale.beginAtZero=!0,Chart.defaults.elements.line.borderWidth=2,Chart.defaults.elements.point.radius=5,Chart.defaults.elements.point.hoverRadius=7,Chart.defaults.plugins.tooltip.radius=3,Chart.defaults.plugins.legend.display=!1;let t,e,a=document.getElementById("js-chartjs-dashboard-lines"),r=document.getElementById("js-chartjs-dashboard-lines2");null!==a&&(t=new Chart(a,{type:"line",data:{labels:["LUNES","MARTES","MIÉRCOLES","JUEVES","VIERNES","SÁBADO","DOMINGO"],datasets:[{label:"This Week",fill:!0,backgroundColor:"rgba(2, 132, 199, .45)",borderColor:"rgba(2, 132, 199, 1)",pointBackgroundColor:"rgba(2, 132, 199, 1)",pointBorderColor:"#fff",pointHoverBackgroundColor:"#fff",pointHoverBorderColor:"rgba(2, 132, 199, 1)",data:[{% for k in data_set_citas_semanal %}{{k}},{% endfor %}]}]},options:{responsive:!0,maintainAspectRatio:!1,tension:.4,scales:{y:{suggestedMin:0,suggestedMax:{{max___data_set_citas_semanal}}}},interaction:{intersect:!1},plugins:{tooltip:{callbacks:{label:function(t){return" "+t.parsed.y+" Citas"}}}}}})),null!==r&&(e=new Chart(r,{type:"line",data:{labels:["LUNES","MARTES","MIÉRCOLES","JUEVES","VIERNES","SÁBADO","DOMINGO"],datasets:[{label:"This Week",fill:!0,backgroundColor:"rgba(101, 163, 13, .45)",borderColor:"rgba(101, 163, 13, 1)",pointBackgroundColor:"rgba(101, 163, 13, 1)",pointBorderColor:"#fff",pointHoverBackgroundColor:"#fff",pointHoverBorderColor:"rgba(101, 163, 13, 1)",data:[{% for k in dataset_facturacion_semanal %}{{k}},{% endfor %}]}]},options:{responsive:!0,maintainAspectRatio:!1,tension:.4,scales:{y:{suggestedMin:0,suggestedMax:{{max_dataset_facturacion_semanal}}}},interaction:{intersect:!1},plugins:{tooltip:{callbacks:{label:function(t){return" $"+t.parsed.y}}}}}}))}static init(){this.initDashboardChartJS()}}Codebase.onLoad((()=>t.init()))}();
+        </script>
+    </body>
+</html>

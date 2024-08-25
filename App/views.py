@@ -143,7 +143,7 @@ class forgot_pass_tocken(View):
                     Si no solicitó la recuperación de su clave, por favor ignore este mensaje
 
                 '''
-            if request.user.antiphishing:
+            if request.user.is_authenticated and not request.user.antiphishing in [None, ""]:
                 Mensaje += f"Código antiphishing: {request.user.antiphishing}"
             print(tocken)
             u=User.objects.get(email=email)

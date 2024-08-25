@@ -253,7 +253,7 @@ class Verificacion(View):
             email_c = base64.b64encode(email_c)
             email_c = str(email_c.decode('utf-8'))
             return render(request,"client/verificacion.html",{
-                "email":email,'form':form,
+                "email":email,'form':form,'email_c':email_c,
                 "action_form":f"../../../../../../../../verificacion/{email_c}/"
             })
 

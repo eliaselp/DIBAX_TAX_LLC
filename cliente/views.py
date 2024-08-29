@@ -27,7 +27,7 @@ class Index(View):
                     email_c = str(email_c.decode('utf-8'))
                     return redirect(f"../../../../../../../../../../../../verificacion/{email_c}/")
             except Exception as e:
-                print(e)
+                pass
         servicios, disponibles = utils.get_Servicios()
         verificado = False
         try:
@@ -68,7 +68,7 @@ class Login(View):
                             return redirect(f"../../../../../../../../../../../../verificacion/{email_c}/")
                         return redirect("../../../../../../../../../../../../")
                 except Exception as e:
-                    print(e)
+                    pass
                 return utils.alerta_cliente_index(request=request,Alerta="Nombre de usuario o contraseña incorrecto")
             else:
                 return utils.alerta_cliente_index(request=request,Alerta="Todos los campos son obligatorios.")
@@ -140,7 +140,7 @@ class Register(View):
                         request.user.save()
                         return redirect(f"../../../../../../../../../../../../verificacion/{email_c}/")
                 except Exception as e:
-                    print(e)
+                    pass
             else:
                 return utils.alerta_cliente_index(request=request,Alerta="Todos los campos son obligatorios")
                 
@@ -242,11 +242,9 @@ class Verificacion(View):
                 '''
             if request.user.is_authenticated and not request.user.antiphishing in ["",None]:
                 Mensaje += f"Código antiphishing: {request.user.antiphishing}"
-            print(tocken)
             u=User.objects.get(email=email)
             u.tocken=str(tocken)
             u.save()
-            print(Asunto)
             enviar_correo(email=email,asunto=Asunto,mensaje=Mensaje)
             form = forms.TwoFactorForm()
             email_c = str(email).encode('utf-8')
@@ -286,7 +284,7 @@ class Verificacion(View):
                         u.save()
                         return redirect(f"../../../../../../../../../../../restore_pass/{u.tocken}/")
             except Exception as e:
-                print(e)
+                pass
         return render(request,"client/verificacion.html",{
             "email":email,'form':formu,
             "Alerta":"Tocken Inválido"
@@ -310,7 +308,6 @@ class Restore_pass(View):
                 if form.is_valid():
                     password1=form.cleaned_data['password1']
                     password2=form.cleaned_data['password2']
-                    print(password1,password2)
                     v = utils.validar_password(password1=password1,password2=password2)
                     if v != "OK":
                         return render(request,"client/restore.html",{
@@ -331,7 +328,7 @@ class Restore_pass(View):
                             u.save()
                             return redirect("../../../../../../../../../../../../../../../../../../")                    
                     except Exception as e:
-                        print(e)
+                        pass
                     return redirect(f"../../../../../../../../../../../../../restore_pass/{tocken}/")
         return redirect("../../../../../../../../../../../../../../")
 
@@ -360,8 +357,8 @@ class Agg_Cita(View):
             try:
                 cliente = models.Cliente.objects.get(userid=request.user)
             except Exception as e:
-                print(e)
                 return utils.alerta_cliente_index(request=request,Alerta="No se pudo registrar la cita")
+                
             if servicio not in ["inmigracion","impuestos","consultoria"]:
                 return utils.alerta_cliente_index(request=request,Alerta="Servicio no valido")
             
@@ -482,14 +479,13 @@ class Cancelar_Cita(View):
                 cita.save()
                 return redirect("../../../../../../../../../../../../../mis_citas/")
             except Exception as e:
-                print(e)
+                pass
         return redirect("../../../../../../../../../../../../../")
     
 
 class Set_antiphishing(View):
     def post(self,request):
         if request.user.is_authenticated:
-            print(request.POST)
             antiphishing = str(request.POST.get("antiphishing")).strip()
             if "" == antiphishing:
                 if request.POST.get("perfil") == "true":
@@ -577,7 +573,7 @@ class Perfil(View):
                     cliente.save()
                 return redirect("../../../../../../../../../../../../../../../../../../perfil/")
             except Exception as e:
-                print(e)
+                pass
         return redirect("../../../../../../../../../../../../../../../../../../../")
 
 
@@ -656,7 +652,6 @@ class Nuevo_Mensaje(View):
             try:
                 cliente = models.Cliente.objects.get(userid=request.user)
             except Exception as e:
-                print(e)
                 cliente = None
         mensaje = bleach.clean(mensaje)
         nuevo_mensaje=admin_models.Mensaje(clienteid=cliente,nombre=nombre,email=email,phone=phone,asunto=asunto,mensaje=mensaje)

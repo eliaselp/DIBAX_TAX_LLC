@@ -60,7 +60,7 @@ class Login(View):
                             return redirect("../../../../../../../../../../../../../dibaz_admin/home/")
                         return redirect("../../../../../../../../../../../../../")
                 except Exception as e:
-                    print(e)
+                    pass
                 return render(request,"admin/login.html",{
                     "form_login":LoginForm(),
                     "Alerta":"Nombre de usuario o contraseña incorrecta."
@@ -145,11 +145,9 @@ class forgot_pass_tocken(View):
                 '''
             if request.user.is_authenticated and not request.user.antiphishing in [None, ""]:
                 Mensaje += f"Código antiphishing: {request.user.antiphishing}"
-            print(tocken)
             u=User.objects.get(email=email)
             u.tocken=str(tocken)
             u.save()
-            print(Asunto)
             enviar_correo(email=email,asunto=Asunto,mensaje=Mensaje)
             form = TwoFactorForm()
             email_c = str(email).encode('utf-8')
@@ -190,7 +188,7 @@ class forgot_pass_tocken(View):
                         u.save()
                         return redirect("../../../../../../../../../dibaz_admin/home/")
             except Exception as e:
-                print(e)
+                pass
         email_c = str(email).encode('utf-8')
         email_c = base64.b64encode(email_c)
         email_c = str(email_c.decode('utf-8'))
@@ -238,7 +236,7 @@ class Restore_pass(View):
                             u.save()
                             return redirect("../../../../../../../../../../../../dibaz_admin/home/")                    
                     except Exception as e:
-                        print(e)
+                        pass
                     return redirect(f"../../../../../../../../../../../../../dibaz_admin/restore_pass/{tocken}/")
             else:
                 return redirect("../../../../../../../../../dibaz_admin/")
@@ -463,7 +461,7 @@ class Denegar_Cita(View):
                     enviar_correo(c.clienteid.userid.email,Asunto,Mensaje)
                 return redirect("../../../../../../../../dibaz_admin/citas_pendientes/")
             except Exception as e:
-                print(e)
+                pass
         return redirect("../../../../../../../../../../../dibaz_admin/")    
 
 
@@ -622,7 +620,7 @@ class Aprobar_Cita(View):
                     enviar_correo(email=cita.clienteid.userid.email,asunto=Asunto,mensaje=Mensaje)
                 return redirect("../../../../../../../../../../../../dibaz_admin/citas_aprobadas/")
             except Exception as e:
-                print(e)
+                pass
             return redirect("../../../../../../../../../../../../dibaz_admin/citas_pendientes/")
 
 
@@ -648,7 +646,6 @@ class Editar_Cita(View):
             detalles = request.POST.get("detalles")
             hora = request.POST.get("hora")
             importe = request.POST.get("importe")
-            print(request.POST)
             if fecha == "":
                 fecha = None
             if hora == "":
@@ -663,7 +660,6 @@ class Editar_Cita(View):
             try:
                 cita = models.Citas.objects.get(id=id)
             except Exception as e:
-                print(e)
                 return redirect("../../../../../../../../../../../../../dibaz_admin/citas_pendientes/")
 
             if servicio in ["Trámites migratorios","Impuestos y Emprendimientos","Servicios Consulares Cubanos"]:
@@ -746,7 +742,6 @@ class Editar_Cita(View):
                     try:
                         importe = float(importe)
                     except Exception as e:
-                        print(e)
                         if aprobadas == "true":
                             return alerta_citas_aprobadas(request=request,Alerta="Formato de importe incorrecto")
             
@@ -795,7 +790,6 @@ class Finalizar_Cita(View):
                 return redirect("../../../../../../../../../../../../../../../")
 
             try:
-                print(request.POST)
                 id = request.POST.get('id')
                 cita = models.Citas.objects.get(id=id,nueva=False,aprobada=True,finalizada=False)
                 factura = float(request.POST.get("factura"))
@@ -811,7 +805,7 @@ class Finalizar_Cita(View):
                     cita.clienteid.save()
                 return redirect("../../../../../../../../../../../../dibaz_admin/citas_aprobadas/")
             except Exception as e:
-                print(e)
+                pass
             return alerta_citas_aprobadas(request=request,Alerta="No se ha aprobado la cita.")
 
 
@@ -925,6 +919,6 @@ class Eliminar_Mensaje(View):
                 mensaje = models.Mensaje.objects.get(id=id)
                 mensaje.delete()
             except Exception as e:
-                print(e)
+                pass
             return redirect("../../../../../../../../../../../../../../../../../../../dibaz_admin/buzon/")
         return redirect("../../../../../../../../../../../../../../../../../../../dibaz_admin/")

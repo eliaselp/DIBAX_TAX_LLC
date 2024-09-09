@@ -10,6 +10,7 @@ from App import utils
 from App.correo import enviar_correo
 from App import models as admin_models
 from App.formularios import Forget_pass_emailForm,Restore_pass_form
+from App.formularios import LoginForm
 import base64
 import uuid
 import bleach
@@ -44,6 +45,14 @@ class Index(View):
         })
 
 class Login(View):
+    def get(self,request):
+        if not request.user.is_authenticated:
+            form_login = LoginForm()
+            return render(request,'client/login.html',{
+                "form_login":form_login,
+            })
+        return redirect("../../../../../../../../../../")
+
     def post(self,request):
         if not request.user.is_authenticated:
             form = forms.Login_Form(request.POST)
@@ -85,6 +94,15 @@ class Logout(View):
 
 
 class Register(View):
+    def get(self, request):
+        if not request.user.is_authenticated:
+            form_login = LoginForm()
+            return render(request,'client/register.html',{
+                "form_login":form_login,
+                "register_form":forms.Register_Form(),
+            })
+        return redirect("../../../../../../../../../../../../")
+
     def post(self,request):
         if not request.user.is_authenticated:
             register_form = forms.Register_Form(request.POST)
